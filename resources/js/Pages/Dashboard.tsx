@@ -1,8 +1,12 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import { PageProps } from '@/types';
+import Counter from "@/Components/Counter/ui/Counter";
+import Pokemon from "@/Components/PokemonList/ui/Pokemon";
+
 
 export default function Dashboard({ auth }: PageProps) {
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -14,6 +18,10 @@ export default function Dashboard({ auth }: PageProps) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">You're logged in!</div>
+                        <Counter />
+                        <Pokemon />
+
+
                     </div>
                 </div>
             </div>

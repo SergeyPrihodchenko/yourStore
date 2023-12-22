@@ -9,5 +9,15 @@ class OptionValues extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'id',
+        'value'
+    ];
+
     protected $titmestamps = false;
+
+    public function option()
+    {
+        $this->belongsTo(Option::class);
+    }
 }
