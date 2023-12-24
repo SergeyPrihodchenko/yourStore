@@ -1,0 +1,12 @@
+.layout{
+
+}
+
+
+.footer{
+    padding: 10px 0;
+    background-color: #555;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
