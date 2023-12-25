@@ -4,10 +4,16 @@ namespace App\Models\admin\category;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
     use HasFactory;
 
-    protected $titmestamps = false;
+    public $titmestamps = false;
+
+    public function catalogs(): HasMany
+    {
+        return $this->hasMany(Catalog::class);
+    }
 }

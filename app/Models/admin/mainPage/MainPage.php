@@ -9,5 +9,5 @@ class MainPage extends Model
 {
     use HasFactory;
 
-    protected $timestamps = false;
+    public $timestamps = false;
 }

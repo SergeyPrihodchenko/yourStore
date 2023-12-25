@@ -2,6 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Models\admin\category\Catalog;
+use App\Models\admin\category\Category;
+use App\Models\admin\product\Option;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
@@ -26,6 +29,7 @@ class Dev extends Command
      */
     public function handle()
     {
-
+        $test = Option::find(1);
+        dd($test->products->toArray());
     }
 }

@@ -22,8 +22,8 @@ class OptionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'product_id',
-            'title'
+            'title' => 'nullable|string|max:100',
+            'id' => 'nullable|numeric'
         ];
     }
 }

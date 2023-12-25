@@ -9,5 +9,5 @@ class Header extends Model
 {
     use HasFactory;
 
-    protected $titmestamps = false;
+    public $titmestamps = false;
 }
