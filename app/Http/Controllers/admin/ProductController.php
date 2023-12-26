@@ -8,9 +8,15 @@ use App\Http\Requests\admin\RequestProduct;
 use App\Models\admin\product\Product;
 use App\Models\admin\product\ProductImage;
 use Illuminate\Support\Facades\Log;
+use Inertia\Inertia;
 
 class ProductController extends Controller
 {
+    public function index()
+    {
+        return Inertia::render('Admin/Product/index', []);
+    }
+
     public function setProduct(RequestProduct $request)
     {
         try {
