@@ -1,6 +1,12 @@
 .layout{
 
 }
+.mainWithoutTabPanel{
+    margin-top: 56px;
+}
+.mainWithTabPanel{
+    /*margin-top: 48px;*/
+}
 
 
 .footer{
