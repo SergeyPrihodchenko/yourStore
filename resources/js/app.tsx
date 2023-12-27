@@ -21,7 +21,6 @@ createInertiaApp({
                 <AppThemeProvider>
                     <App {...props} />
                 </AppThemeProvider>
-
             </StoreProvider>
 
         );

@@ -33,5 +33,24 @@ export const theme = createTheme({
             light: alpha(violetBase, 0.5),
             dark: alpha(violetBase, 0.9),
         }
+    },
+    components: {
+        MuiTextField: {
+            styleOverrides: {
+                root: {
+                    "[type='number']::-webkit-outer-spin-button, [type='number']::-webkit-inner-spin-button": {
+                        '-webkit-appearance': 'none',
+                    },
+                    "[type='number'], [type='number']:hover, [type='number']:focus": {
+                        appearance: 'none',
+                        '-moz-appearance': 'textfield'
+                    },
+                    "[type='password'], [type='number'], [type='text']:focus": {
+                        border: 'none',
+                        boxShadow: 'none'
+                    },
+                }
+            }
+        }
     }
 })
