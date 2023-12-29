@@ -2,6 +2,7 @@ import { Grid, TextField } from "@mui/material";
 import AutocompleteComponent from "../../../../Components/MuiComponents/AutocompliteComponent";
 import TextAreaComponent from "../../../../Components/MuiComponents/TextAreaComponent";
 import { useState } from "react";
+import {Head} from "@inertiajs/react";
 
 const ProductComponent = () => {
 
@@ -19,6 +20,7 @@ const ProductComponent = () => {
 
     return (
         <Grid container gap={1} sx={{maxWidth: '1400px', padding: '10px', border: 'solid 1px black', margin: '77px auto 0 auto', justifyContent: 'center'}}>
+            <Head title="Product" />
             <Grid item xs={12} sx={{margin: '0 auto', textAlign: 'center'}}>
                 <TextField label="Название" variant="outlined" helperText="Правила к записи" value={productData.title} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {handleChange(e.target.value, 'title')}}/>
             </Grid>
