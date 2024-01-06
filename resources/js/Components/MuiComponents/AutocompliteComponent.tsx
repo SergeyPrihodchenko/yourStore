@@ -1,9 +1,9 @@
 import { Autocomplete, TextField } from "@mui/material"
 
 type AutocompleteComponent = {
-    style: any,
-    options: any,
-    label: string
+    style?: any,
+    options?: any,
+    label?: string
 }
 
 const AutocompleteComponent = ({style, options, label}: AutocompleteComponent) => {

@@ -1,25 +1,28 @@
 import { axiosBaseQuery } from "@/App/providers/StoreProvider/config/axiosConfigQuery";
 import { createApi } from "@reduxjs/toolkit/query/react";
+import { Category } from "./types.model";
 
-const queryCategory = createApi({
+export const queryCategory = createApi({
     reducerPath: 'query/category',
-    baseQuery: axiosBaseQuery({baseUrl: '/admin/catalogs'}),
-    tagTypes: ['Catalogs'],
+    baseQuery: axiosBaseQuery({baseUrl: '/api/admin/category'}),
+    tagTypes: ['Category'],
     endpoints: (build) => ({
 
-        getCategory: build.query({
+        getCategory: build.query<Category, string>({
             query: () => ({
-                url: '/data',
-                method: 'GET'
+                url: '/getAll',
+                method: 'GET',
             }),
-            providesTags: result => ['Catalogs']
+            providesTags: result => ['Category']
         }),
 
         setCategory: build.query({
             query: () => ({
                 url: 'setCategory',
-                method: 'POST'
+                method: 'POST',
             })
         })
     })
 });
+
+export const {useGetCategoryQuery, useSetCategoryQuery} = queryCategory

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Http\Requests\admin\UserRequest;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -21,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'value'
     ];
 
     /**
@@ -42,4 +45,39 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function toggleAdmin($id): void
+    {
+        $check = \auth()->user()->is_super_admin;
+
+        $user = User::find($id);
+
+        if($check) {
+            $user->update(['is_admin' => !$user->is_admin]);
+        }
+    }
+
+    public function updateName($id, UserRequest $request): void
+    {
+        $check = \auth()->user()->is_super_admin;
+
+        $user = User::find($id);
+
+        $validated = $request->validated();
+
+        if ($check) {
+            $user->update(['name' => $validated['value']]);
+        }
+    }
+
+    public function deleteUser($id)
+    {
+        $check = \auth()->user()->is_super_admin;
+
+        $user = User::find($id);
+
+        if ($check) {
+            $user->delete();
+        }
+    }
 }
