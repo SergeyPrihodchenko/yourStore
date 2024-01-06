@@ -1,7 +1,7 @@
 import TableComponent from "@/Components/MuiComponents/TableComponent";
 import { Button, Grid, TextField } from "@mui/material";
 
-const CategoryComponent = () => {
+const CategoryComponent = ({categories}: any) => {
     return (
         <Grid container sx={{maxWidth: '1400px', padding: '10px', border: 'solid 1px black', margin: '77px auto 0 auto', justifyContent: 'center'}}>
             <Grid item xs={12}>
@@ -9,7 +9,7 @@ const CategoryComponent = () => {
                 <Button variant="outlined">Добавить</Button>
             </Grid>
             <Grid item xs={12}>
-                <TableComponent/>
+                <TableComponent rows={categories}/>
             </Grid>
         </Grid>
     );

@@ -2,11 +2,11 @@ import MainLayout from "@/Layouts/MainLayout/MainLayout";
 import CategoryComponent from "./ui/CategoryComponent";
 import { Head } from "@inertiajs/react";
 
-const index = () => {
+const index = ({categories}: any) => {
     return (
         <MainLayout>
             <Head title="Category"/>
-            <CategoryComponent/>
+            <CategoryComponent categories={categories}/>
         </MainLayout>
     );
 }

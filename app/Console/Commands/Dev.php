@@ -29,7 +29,8 @@ class Dev extends Command
      */
     public function handle()
     {
-        $test = Option::find(1);
-        dd($test->products->toArray());
+        $test = Category::all();
+
+        dd($test->toArray());
     }
 }
