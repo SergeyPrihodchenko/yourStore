@@ -32,11 +32,9 @@ class ProductController extends Controller
                 $product_image = new ProductImage;
 
                 $product_image->setImage($request);
-
             } catch (\Throwable $th) {
                 Log::channel('daily')->error($th->getPrevious()->getMessage());
             }
-
         } catch (\Throwable $th) {
             $error = new ProductAdminException('Error in created product data set');
             Log::channel('daily')->error($error->getMessage(), ['status_code' => $th->getPrevious()->getMessage()]);
@@ -51,7 +49,7 @@ class ProductController extends Controller
             $images = $product->images;
 
             $imgs_path = [];
-            
+
             foreach ($images as $image) {
                 $imgs_path[] = $image['img_path'];
             }
