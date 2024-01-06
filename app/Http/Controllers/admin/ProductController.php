@@ -5,6 +5,8 @@ namespace App\Http\Controllers\admin;
 use App\Exceptions\ProductAdminException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\admin\RequestProduct;
+use App\Models\admin\category\Catalog;
+use App\Models\admin\category\Category;
 use App\Models\admin\product\Product;
 use App\Models\admin\product\ProductImage;
 use Illuminate\Support\Facades\Log;
@@ -14,7 +16,24 @@ class ProductController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Admin/Product/index', []);
+        $categories = Category::all();
+        $catalogs = Catalog::all();
+        $products = Product::all();
+
+        return Inertia::render('Admin/Product/index', [
+            'categories' => $categories, 
+            'catalogs' => $catalogs,
+            'products' => $products
+        ]);
+    }
+
+    public function serchProduct(RequestProduct $request)
+    {
+        $value = $request->validated('value');
+
+        $products = Product::where('title', 'like' ,"%$value%")->get()->toArray();
+
+        return Inertia::share('Admin/Product/index');
     }
 
     public function setProduct(RequestProduct $request)

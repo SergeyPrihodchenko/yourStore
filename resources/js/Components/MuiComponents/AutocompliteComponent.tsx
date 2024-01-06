@@ -3,12 +3,13 @@ import { Autocomplete, Box, TextField } from "@mui/material"
 
 type AutocompleteComponent = {
     style?: any,
-    options?: any,
-    label?: string,
-    handleChanche?: Function; hendleChange(e: any):any
+    options: any,
+    label: string,
+    handleChange?: any,
+    noOptionsText: string
 }
 
-const AutocompleteComponent = ({style, options, label, hendleChange}: AutocompleteComponent) => {
+const AutocompleteComponent = ({style, options, label, handleChange, noOptionsText}: AutocompleteComponent) => {
 
     return (
         <Autocomplete
@@ -16,9 +17,9 @@ const AutocompleteComponent = ({style, options, label, hendleChange}: Autocomple
             options={options}
 
             sx={{ ...style, width: 300 }}
-            onChange={hendleChange}
+            onChange={handleChange}
             getOptionLabel={(option: any) => option.title}
-            noOptionsText='нет категорий'
+            noOptionsText={noOptionsText}
             renderOption={(props, option) => (
                 <Box component="li" {...props} value={option.id} key={option.id}>
                     {option.title}

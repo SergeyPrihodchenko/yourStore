@@ -22,12 +22,13 @@ class RequestProduct extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:100',
-            'catalog_id' => 'required|numeric',
+            'title' => 'nullable|string|max:100',
+            'catalog_id' => 'nullable|numeric',
             'description' => 'nullable|string|max:5000',
-            'price' => 'required|numeric',
+            'price' => 'nullable|numeric',
             'quantity' => 'nullable|numeric',
-            'image' => 'nullable|image'
+            'image' => 'nullable|image',
+            'value' => 'nullable|string|max:100'
         ];
     }
 }

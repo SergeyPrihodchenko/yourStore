@@ -8,7 +8,12 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
 
-export default function TableComponent({rows, style}: any   ) {
+type TTableComponent = {
+  rows?: any,
+  style?: any
+}
+
+export default function TableComponent({rows, style}: TTableComponent) {
 
 
   return (
