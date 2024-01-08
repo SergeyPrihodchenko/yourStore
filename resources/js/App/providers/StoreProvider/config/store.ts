@@ -2,19 +2,22 @@ import {configureStore, ReducersMapObject} from "@reduxjs/toolkit";
 import {StateTypes} from "@/App/providers/StoreProvider/config/StateTypes";
 import {counterReducer} from "@/Components/Counter/slice/counterSlice";
 import {pokemonApi} from "@/Components/PokemonList/services/pokemon";
+import { queryCatalog } from "@/Entities/Catalog/model/RTKQuery";
+import { queryCategory } from "@/Entities/Category/model/RTKQuery";
 
 
 export function createReduxStore(initialState?: StateTypes){
     const rootReducers:  ReducersMapObject<StateTypes> = {
         counter: counterReducer,
         [pokemonApi.reducerPath]: pokemonApi.reducer,
+        [queryCatalog.reducerPath]: queryCatalog.reducer,
+        [queryCategory.reducerPath]: queryCategory.reducer
     };
     const store = configureStore({
         reducer: rootReducers,
         preloadedState: initialState,
         middleware: (getDefaultMiddleware) =>
-            getDefaultMiddleware().concat(pokemonApi.middleware)
-
+            getDefaultMiddleware().concat([pokemonApi.middleware, queryCatalog.middleware, queryCategory.middleware])
     });
 
     return store;
