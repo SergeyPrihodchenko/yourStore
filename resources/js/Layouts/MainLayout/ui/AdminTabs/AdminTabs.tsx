@@ -7,23 +7,19 @@ interface  AdminTabsProps{
 
 }
 
-console.log(route().current('dashboard'))
+console.log('log',route().current('admin.product'))
 
 interface LinkTabProps {
     label?: string;
     href?: string;
     selected?: boolean;
 
-    onClick?: (routeStr: string) => void
-    path?: string;
 }
 function LinkTab(props: LinkTabProps) {
-    const {onClick} = props;
-    console.log('selected',props.path);
+    console.log('selected',props.selected);
     return (
         <Tab
             component="a"
-            onClick={onClick}
             aria-current={props.selected && 'page'}
             {...props}
         />
@@ -58,10 +54,10 @@ export const AdminTabs = (props: AdminTabsProps) =>{
                 role="navigation"
             >
 
-                {/*<Tab label={"Dashboard"} onClick={()=> handleTabClick('dashboard')} value={0} />*/}
+                <Tab component={'a'} aria-current={route().current('dashboard') && 'page'} label={"Dashboard"} onClick={()=> router.get(route("dashboard"))} />
                 {/*<Tab label={"Product"} onClick={()=> handleTabClick('admin.product')} value={1} />*/}
-                {/*<Tab label={"Edit"} onClick={()=> router.get(route('profile.edit'))} value={2} />*/}
-                {paths.map(path => <LinkTab label={path.name} path={path.path}  onClick={()=>handleTabClick(path.path)}  /> )}
+                <Tab component={'a'} aria-current={route().current('admin.product') && 'page'} label={"product"} onClick={()=> router.get(route("admin.product"))} />
+                {/*{paths.map(path => <LinkTab key={path.name} label={path.name}  onClick={()=>handleTabClick(path.path)}  /> )}*/}
 
             </Tabs>
         </Box>
