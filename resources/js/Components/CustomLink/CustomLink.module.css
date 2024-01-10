@@ -1,0 +1,20 @@
+
+.active{
+    border-bottom: 2px solid purple;
+    color: purple;
+}
+
+.default{
+    padding: 10px 12px;
+    transition: all 0.5s ease-out;
+}
+
+.default:hover{
+    background-color: rgba(171, 171, 171, 0.35);
+    color: #2d2d2d;
+}
+
+
+.primary{
+    color: #007bff;
+}

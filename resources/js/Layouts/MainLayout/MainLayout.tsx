@@ -1,7 +1,7 @@
 import s from  './MainLayout.module.css';
 import {ReactNode} from "react";
 import Header from "@/Layouts/MainLayout/ui/Header";
-import {AdminTabs} from "@/Layouts/MainLayout/ui/AdminTabs/AdminTabs";
+import AdminTabs from "@/Layouts/MainLayout/ui/AdminTabs/AdminTabs";
 import {router} from "@inertiajs/react";
 interface MainLayoutProps {
     children?: ReactNode;

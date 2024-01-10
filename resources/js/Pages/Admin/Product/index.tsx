@@ -1,10 +1,13 @@
 import MainLayout from "@/Layouts/MainLayout/MainLayout";
-import ProductComponent from "./ui/ProductComponent";
+import ProductPanelComponent from "./ui/ProductPanelComponent";
+import ProductListComponent from "./ui/ProductListComponent";
 
-const AdminProductPanel = () => {
+const AdminProductPanel = ({categories, catalogs, products}: any) => {
+    
     return (
         <MainLayout>
-            <ProductComponent/>
+            {/* <ProductPanelComponent categories={categories} catalogs={catalogs}/> */}
+            <ProductListComponent categories={categories} catalogs={catalogs} products={products}/>
         </MainLayout>
     );
 }

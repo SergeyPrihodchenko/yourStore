@@ -1,0 +1,8 @@
+.adminPanelList{
+    display: flex;
+    align-items: center;
+}
+
+.adminPanelItem{
+    display: flex;
+}

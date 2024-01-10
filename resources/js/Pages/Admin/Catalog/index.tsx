@@ -1,10 +1,11 @@
 import MainLayout from "@/Layouts/MainLayout/MainLayout";
 import CatalogComponent from "./ui/CatalogComponent";
 
-const CatalogPage = () => {
+const CatalogPage = ({data}: any) => {
+
     return (
         <MainLayout>
-            <CatalogComponent/>
+            <CatalogComponent data={data}/>
         </MainLayout>
     );
 }
