@@ -9,4 +9,4 @@ Route::post('/admin/product/set', [ProductController::class, 'setProduct'])->nam
 Route::delete('/admin/product/delete/{id}', [ProductController::class, 'deleteProduct'])->name('deleteProduct');
 Route::post('/admin/product/update/{id}', [ProductController::class, 'updateProduct'])->name('updateProduct');
 
-Route::post('/admin/product/serch', [ProductController::class, 'serchProduct'])->name('serch');
+Route::post('/admin/product/findByTitle', [ProductController::class, 'serchProduct'])->name('findByTitle');

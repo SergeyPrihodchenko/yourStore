@@ -33,7 +33,14 @@ class ProductController extends Controller
 
         $products = Product::where('title', 'like' ,"%$value%")->get()->toArray();
 
-        return Inertia::share('Admin/Product/index');
+        return ['products' => $products];
+    }
+
+    public function productsByCategory($id)
+    {
+        $category = Category::find($id);
+
+
     }
 
     public function setProduct(RequestProduct $request)

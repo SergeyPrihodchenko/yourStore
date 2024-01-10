@@ -1,6 +1,6 @@
 import AutocompleteComponent from "@/Components/MuiComponents/AutocompliteComponent";
 import TableComponent from "@/Components/MuiComponents/TableComponent";
-import { router, usePage } from "@inertiajs/react";
+import { useFindProductsByTitleMutation } from "@/Entities/Product/modul/RTLQuery";
 import { Grid, TextField } from "@mui/material";
 import { useState } from "react";
 
@@ -8,28 +8,18 @@ const ProductListComponent = ({categories, catalogs, products}: any) => {
 
     const [serchStr, setSerchStr] = useState('');
 
-    const serchFetch = async () => {
+    const [listProducts, setListProducts] = useState(products);
 
-       router.post(route('serch'), {value: serchStr}, {
-        onSuccess: () => {
-
-            
-        }
-       });
-    }
+    const [findByTitle, {}] = useFindProductsByTitleMutation();
 
     const handleChange = (e: any) => {
         setSerchStr(e.target.value);
-        if(serchStr.length > 2) {
-            serchFetch()
-        }
     }
-
     
     return (
         <Grid container sx={{padding: '50px 0px'}}>
             <Grid item xs={12}>
-                <TextField variant="outlined" value={serchStr} label='Поиск' onChange={handleChange}/>
+                <TextField variant="outlined" value={serchStr} label='Поиск' onChange={() => {}}/>
             </Grid>
             <Grid item xs={12}>
                 <AutocompleteComponent label="Категории" noOptionsText="Нет категорий" options={categories} style={{}}/>
