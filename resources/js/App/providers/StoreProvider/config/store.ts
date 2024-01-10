@@ -19,7 +19,12 @@ export function createReduxStore(initialState?: StateTypes){
         reducer: rootReducers,
         preloadedState: initialState,
         middleware: (getDefaultMiddleware) =>
-            getDefaultMiddleware().concat([pokemonApi.middleware, queryCatalog.middleware, queryCategory.middleware])
+            getDefaultMiddleware().concat([
+                pokemonApi.middleware,
+                queryCatalog.middleware,
+                queryCategory.middleware, 
+                queryProduct.middleware
+            ])
     });
 
     return store;
