@@ -1,16 +1,11 @@
 import s from './AdminTabs.module.css';
 import CustomLink, {VariantLink} from "@/Components/CustomLink/CustomLink";
 
-interface  AdminTabsProps{
+interface  AdminTabsProps{}
 
-}
+// console.log('current route',route().current('admin.product'))
 
-console.log('current route',route().current('admin.product'))
-
-
-
-
-export const AdminTabs = (props: AdminTabsProps) =>{
+const AdminTabs = (props: AdminTabsProps) =>{
 
     return (
         <ul className={s.adminPanelList}>
@@ -27,3 +22,4 @@ export const AdminTabs = (props: AdminTabsProps) =>{
 
     );
 }
+export default AdminTabs;
