@@ -11,7 +11,7 @@ const CatalogComponent = ({data}: any) => {
     const [category_id, setCategory_id] = useState(null);
 
 
-    const hendleChange = (e: any) => {
+    const handleChange = (e: any) => {
         setCategory_id(e.target.value);
     }
 
@@ -31,7 +31,7 @@ const CatalogComponent = ({data}: any) => {
     return (
         <Grid container sx={{padding: '50px'}}>
             <Grid item xs={12}>
-                <AutocompleteComponent label="Категория" options={categories} hendleChange={hendleChange}/>
+                <AutocompleteComponent label="Категория" noOptionsText="Нет категорий" options={categories} handleChange={handleChange}/>
                 <Box>
                     <TextField variant="outlined" label="Название каталога"/>
                     <Button variant="outlined">Добавить</Button>
