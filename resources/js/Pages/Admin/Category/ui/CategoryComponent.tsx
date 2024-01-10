@@ -1,22 +1,15 @@
+import TableComponent from "@/Components/MuiComponents/TableComponent";
 import { Button, Grid, TextField } from "@mui/material";
-import TableComponent from "./TableComponent";
-import { useGetCategoryQuery } from "@/Entities/Category/model/RTKQuery";
-import { useState } from "react";
 
-const CategoryComponent = () => {
-
-    const {data, isSuccess} = useGetCategoryQuery('');
-    
+const CategoryComponent = ({categories}: any) => {
     return (
-        <Grid container>
+        <Grid container sx={{maxWidth: '1400px', padding: '10px', border: 'solid 1px black', margin: '77px auto 0 auto', justifyContent: 'center'}}>
             <Grid item xs={12}>
-                <TextField variant="outlined" helperText='текст помощник'/>
-                <Button variant="outlined">Создать</Button>
+                <TextField label="Название категории" variant="outlined" helperText='описание действий кнопки'/>
+                <Button variant="outlined">Добавить</Button>
             </Grid>
-            <Grid container>
-                <Grid item xs={12}>
-                    <TableComponent categories={isSuccess ? data : []}/>
-                </Grid>
+            <Grid item xs={12}>
+                <TableComponent rows={categories}/>
             </Grid>
         </Grid>
     );

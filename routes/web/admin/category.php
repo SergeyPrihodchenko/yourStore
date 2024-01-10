@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\admin\CategoryController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-Route::get('/admin/category', function () {return Inertia::render('Admin/Category/index');});
+
+Route::get('admin/category', [CategoryController::class, 'index'])->name('admin.category');
+

@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests\admin;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RequestProduct extends FormRequest
+class CategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,13 +22,8 @@ class RequestProduct extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'nullable|string|max:100',
-            'catalog_id' => 'nullable|numeric',
-            'description' => 'nullable|string|max:5000',
-            'price' => 'nullable|numeric',
-            'quantity' => 'nullable|numeric',
-            'image' => 'nullable|image',
-            'value' => 'nullable|string|max:100'
+            'id' => 'nullable|numeric',
+            'title' => 'requared|string|max:100'
         ];
     }
 }

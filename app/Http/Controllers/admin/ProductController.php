@@ -5,6 +5,8 @@ namespace App\Http\Controllers\admin;
 use App\Exceptions\ProductAdminException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\admin\RequestProduct;
+use App\Models\admin\category\Catalog;
+use App\Models\admin\category\Category;
 use App\Models\admin\product\Product;
 use App\Models\admin\product\ProductImage;
 use Illuminate\Support\Facades\Log;
@@ -14,7 +16,24 @@ class ProductController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Admin/Product/index', []);
+        $categories = Category::all();
+        $catalogs = Catalog::all();
+        $products = Product::all();
+
+        return Inertia::render('Admin/Product/index', [
+            'categories' => $categories, 
+            'catalogs' => $catalogs,
+            'products' => $products
+        ]);
+    }
+
+    public function serchProduct(RequestProduct $request)
+    {
+        $value = $request->validated('value');
+
+        $products = Product::where('title', 'like' ,"%$value%")->get()->toArray();
+
+        return Inertia::share('Admin/Product/index');
     }
 
     public function setProduct(RequestProduct $request)
@@ -32,11 +51,9 @@ class ProductController extends Controller
                 $product_image = new ProductImage;
 
                 $product_image->setImage($request);
-
             } catch (\Throwable $th) {
                 Log::channel('daily')->error($th->getPrevious()->getMessage());
             }
-
         } catch (\Throwable $th) {
             $error = new ProductAdminException('Error in created product data set');
             Log::channel('daily')->error($error->getMessage(), ['status_code' => $th->getPrevious()->getMessage()]);
@@ -51,7 +68,7 @@ class ProductController extends Controller
             $images = $product->images;
 
             $imgs_path = [];
-            
+
             foreach ($images as $image) {
                 $imgs_path[] = $image['img_path'];
             }

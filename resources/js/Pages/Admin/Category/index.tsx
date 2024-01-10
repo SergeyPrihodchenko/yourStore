@@ -1,12 +1,14 @@
 import MainLayout from "@/Layouts/MainLayout/MainLayout";
 import CategoryComponent from "./ui/CategoryComponent";
+import { Head } from "@inertiajs/react";
 
-const CategoryPage = () => {
+const index = ({categories}: any) => {
     return (
         <MainLayout>
-            <CategoryComponent/>
+            <Head title="Category"/>
+            <CategoryComponent categories={categories}/>
         </MainLayout>
     );
 }
 
-export default CategoryPage;
+export default index;
