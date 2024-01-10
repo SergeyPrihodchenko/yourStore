@@ -21,6 +21,13 @@ export const queryProduct = createApi({
                 method: 'POST',
                 params: {value: title}
             })
+        }),
+
+        getProductsByCatalog: build.query({
+            query: (arg: number) => ({
+                url: '/productsByCatalogs/'+arg,
+                method: 'GET',
+            })
         })
 
         
@@ -29,5 +36,6 @@ export const queryProduct = createApi({
 
 export const {
     useGetProductsQuery,
+    useGetProductsByCatalogQuery,
     useFindProductsByTitleMutation
 } = queryProduct

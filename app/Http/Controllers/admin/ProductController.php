@@ -36,11 +36,13 @@ class ProductController extends Controller
         return ['products' => $products];
     }
 
-    public function productsByCategory($id)
+    public function productsByCatalogs($id)
     {
-        $category = Category::find($id);
+        $catalogs = Catalog::find($id);
 
+        $products = $catalogs->products;
 
+        return ['products' => $products];
     }
 
     public function setProduct(RequestProduct $request)

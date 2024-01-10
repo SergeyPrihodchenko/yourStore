@@ -10,3 +10,4 @@ Route::delete('/admin/product/delete/{id}', [ProductController::class, 'deletePr
 Route::post('/admin/product/update/{id}', [ProductController::class, 'updateProduct'])->name('updateProduct');
 
 Route::post('/admin/product/findByTitle', [ProductController::class, 'serchProduct'])->name('findByTitle');
+Route::get('/admin/product/productsByCatalogs/{ID}', [ProductController::class, 'productsByCatalogs'])->name('productsByCatalogs');
