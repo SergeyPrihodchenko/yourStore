@@ -6,8 +6,8 @@ const AdminProductPanel = ({categories, catalogs, products}: any) => {
     
     return (
         <MainLayout>
-            {/* <ProductPanelComponent categories={categories} catalogs={catalogs}/> */}
-            <ProductListComponent categories={categories} catalogs={catalogs} products={products}/>
+            <ProductPanelComponent categories={categories} catalogs={catalogs}/>
+            {/* <ProductListComponent categories={categories} catalogs={catalogs} products={products}/> */}
         </MainLayout>
     );
 }

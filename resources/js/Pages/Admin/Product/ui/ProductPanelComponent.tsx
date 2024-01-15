@@ -1,22 +1,40 @@
 import { Button, Grid, TextField } from "@mui/material";
 import AutocompleteComponent from "../../../../Components/MuiComponents/AutocompliteComponent";
 import TextAreaComponent from "../../../../Components/MuiComponents/TextAreaComponent";
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { styled } from '@mui/material/styles';
 import { useEffect, useState } from "react";
-import {Head} from "@inertiajs/react";
+import {Head, router} from "@inertiajs/react";
 
 const ProductPanelComponent = ({categories, catalogs}: any) => {
 
+    const formData = new FormData();
+
     const [filtredCatalogs, setFiltredCatalog] = useState([]);
+    const [previewImg, setPreviewImg] = useState<any>([]);
+    const [files, setFiles] = useState<any>([]);
     const [categoryId, setCategoryId] = useState(null);
     const [catalogId, setCatalogId] = useState(null);
 
-    const [productData, setProductData] = useState({
+    const [productData, setProductData] = useState<any>({
         title: '',
         catalog_id: '',
         price: '',
         quantity: '',
         description: ''
     });
+
+    const VisuallyHiddenInput = styled('input')({
+        clip: 'rect(0 0 0 0)',
+        clipPath: 'inset(50%)',
+        height: 1,
+        overflow: 'hidden',
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        whiteSpace: 'nowrap',
+        width: 1,
+      });
 
     const handleChange = (value: any, name: string) => {
         setProductData({...productData, [name]: value});
@@ -28,6 +46,12 @@ const ProductPanelComponent = ({categories, catalogs}: any) => {
 
     const handleChangeCatalog = (e: any) => {
         setCatalogId(e.target.value);
+    }
+
+    const handleChangeFile = (e: any) => {
+        if(files.length < 4) {
+            setFiles([...files, e.target.files]);
+        }
     }
 
     const filterCatalogs = () => {
@@ -46,6 +70,32 @@ const ProductPanelComponent = ({categories, catalogs}: any) => {
         handleChange(catalogId, 'catalog_id');
     }, [catalogId]);
 
+    useEffect(() => { 
+        files.forEach((file: any) => {
+            setPreviewImg([...previewImg, [...file].map((el) => URL.createObjectURL(el))]);
+        });
+      }, [files]);
+      
+      const sendData = () => {
+
+        for (const key in productData) {
+            formData.set(key, productData[key]);
+        }
+        
+        for (const el of files) {
+            formData.append('images[]', el[0]);
+        }        
+        
+        router.post(route('setProduct'), formData, {
+            onSuccess: (result) => {
+                console.log(result);
+            },
+            onError: (err) => {console.log(err);
+            }
+        });
+
+      }
+      
     return (
         <Grid container gap={1} sx={{maxWidth: '1400px', padding: '10px', border: 'solid 1px black', margin: '77px auto 0 auto', justifyContent: 'center'}}>
             <Head title="Product" />
@@ -65,8 +115,39 @@ const ProductPanelComponent = ({categories, catalogs}: any) => {
             <Grid item xs={12} sx={{display: 'flex', justifyContent: 'center'}}>
                 <TextAreaComponent style={{width: {xs: '360px', ml: '900px'}}} value={productData.description} handleChange={handleChange}/>
             </Grid>
+            <Grid>
+            <Grid item xs={12}>
+              <Button
+                component="label"
+                variant="text"
+                color="primary"
+                size="small"
+                startIcon={<CloudUploadIcon/>}
+                sx={{border: 'solid 1px black', borderRadius: '5px', padding: '10px'}}
+              >
+                Загрузить фото
+              <VisuallyHiddenInput
+                type="file"
+                multiple
+                onChange={handleChangeFile}
+              />
+              </Button>
+              <p>до 4 изображений</p>
+            </Grid>
+            <Grid item xs={12} sx={{display: 'flex', justifyContent: 'start'}}>
+              {previewImg && previewImg.map((url: any, index: any) => (
+                <img
+                  src={url}
+                  key={index}
+                  width={100}
+                  height={100}
+                  style={{margin: '5px'}}
+                />
+              ))}
+              </Grid>
+            </Grid>
             <Grid item xs={12} sx={{display: 'flex', justifyContent: 'center'}}>
-                <Button variant="outlined">Добавить продукт</Button>
+                <Button variant="outlined" onClick={sendData}>Добавить продукт</Button>
             </Grid>
         </Grid>
     );

@@ -47,26 +47,15 @@ class ProductController extends Controller
 
     public function setProduct(RequestProduct $request)
     {
-        try {
-
             $request = $request->validated();
-
+            dd($request);
             $product = Product::create($request);
 
             $request['product_id'] = $product->id;
 
-            try {
+            $product_image = new ProductImage;
 
-                $product_image = new ProductImage;
-
-                $product_image->setImage($request);
-            } catch (\Throwable $th) {
-                Log::channel('daily')->error($th->getPrevious()->getMessage());
-            }
-        } catch (\Throwable $th) {
-            $error = new ProductAdminException('Error in created product data set');
-            Log::channel('daily')->error($error->getMessage(), ['status_code' => $th->getPrevious()->getMessage()]);
-        }
+            $product_image->setImage($request);
     }
 
     public function deleteProduct(string $id): void

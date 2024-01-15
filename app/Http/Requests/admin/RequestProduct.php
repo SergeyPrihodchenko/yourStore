@@ -24,10 +24,11 @@ class RequestProduct extends FormRequest
         return [
             'title' => 'nullable|string|max:100',
             'catalog_id' => 'nullable|numeric',
-            'description' => 'nullable|string|max:5000',
+            'description' => 'nullable|string|max:2000',
             'price' => 'nullable|numeric',
             'quantity' => 'nullable|numeric',
-            'image' => 'nullable|image',
+            'images' => 'nullable|array',
+            'images.*' => 'nullable|image',
             'value' => 'nullable|string|max:100'
         ];
     }
