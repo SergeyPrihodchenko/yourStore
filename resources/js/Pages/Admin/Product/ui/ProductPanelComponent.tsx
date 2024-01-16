@@ -88,9 +88,17 @@ const ProductPanelComponent = ({categories, catalogs}: any) => {
         
         router.post(route('setProduct'), formData, {
             onSuccess: (result) => {
-                console.log(result);
+                for (const key in productData) {
+                    if (Object.prototype.hasOwnProperty.call(productData, key)) {
+                        productData[key] = '';
+                    }
+                }
+                setProductData(productData);
+                setFiles([]);
+                setPreviewImg([]);
             },
-            onError: (err) => {console.log(err);
+            onError: (err) => {
+                console.log(err);
             }
         });
 

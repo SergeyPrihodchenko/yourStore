@@ -1,21 +1,21 @@
-import { Category } from "@/Entities/Category/model/types.model"
 import { Autocomplete, Box, TextField } from "@mui/material"
+import { useRef } from "react";
 
 type AutocompleteComponent = {
     style?: any,
     options: any,
     label: string,
     handleChange?: any,
-    noOptionsText: string
+    noOptionsText: string,
 }
 
 const AutocompleteComponent = ({style, options, label, handleChange, noOptionsText}: AutocompleteComponent) => {
+
 
     return (
         <Autocomplete
             disablePortal
             options={options}
-
             sx={{ ...style, width: 300 }}
             onChange={handleChange}
             getOptionLabel={(option: any) => option.title}

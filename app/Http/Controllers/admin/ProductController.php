@@ -48,7 +48,7 @@ class ProductController extends Controller
     public function setProduct(RequestProduct $request)
     {
             $request = $request->validated();
-            dd($request);
+
             $product = Product::create($request);
 
             $request['product_id'] = $product->id;
