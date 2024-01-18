@@ -11,7 +11,7 @@ class Category extends Model
 {
     use HasFactory;
 
-    public $titmestamps = false;
+    public $timestamps = false;
 
     public function catalogs(): HasMany
     {

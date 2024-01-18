@@ -23,7 +23,7 @@ class CategoryRequest extends FormRequest
     {
         return [
             'id' => 'nullable|numeric',
-            'title' => 'requared|string|max:100'
+            'title' => 'required|string|max:100'
         ];
     }
 }
