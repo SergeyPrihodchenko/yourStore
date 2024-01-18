@@ -6,8 +6,8 @@ import { styled } from '@mui/material/styles';
 import { useEffect, useState } from "react";
 import {Head, router} from "@inertiajs/react";
 
-const ProductPanelComponent = ({categories, catalogs}: any) => {
-
+const ProductPanelComponent = ({categories, catalogs }: any) => {
+    
     const formData = new FormData();
 
     const [filtredCatalogs, setFiltredCatalog] = useState([]);
