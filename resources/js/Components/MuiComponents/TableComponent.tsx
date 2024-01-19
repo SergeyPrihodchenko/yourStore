@@ -7,21 +7,20 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
+import { router } from '@inertiajs/react';
 
 type TTableComponent = {
   rows?: any,
-  style?: any
+  style?: any,
+  onDelete?: (param:number)=> void
 }
-
-export default function TableComponent({rows, style}: TTableComponent) {
-
-
+export default function TableComponent({rows, style, onDelete }: TTableComponent) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Названине</TableCell>
+            <TableCell>Название</TableCell>
           </TableRow>
         </TableHead>
         <TableBody sx={{style}}>
@@ -31,7 +30,15 @@ export default function TableComponent({rows, style}: TTableComponent) {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">{row.title}</TableCell>
-              <TableCell align="right"><Button variant='outlined'>Изменить</Button><Button variant='outlined'>Удалить</Button></TableCell>
+              <TableCell align="right">
+                <Button variant='outlined' >Изменить</Button>
+                <Button 
+                  variant='outlined' 
+                  onClick={() => onDelete(row.id) }
+                  >
+                    Удалить
+                  </Button>
+                </TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -10,7 +10,9 @@ class Category extends Model
 {
     use HasFactory;
 
-    public $titmestamps = false;
+    public $timestamps = false;
+
+    protected $fillable =['title'];
 
     public function catalogs(): HasMany
     {
