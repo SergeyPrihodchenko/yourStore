@@ -4,6 +4,7 @@ import {counterReducer} from "@/Components/Counter/slice/counterSlice";
 import {pokemonApi} from "@/Components/PokemonList/services/pokemon";
 import { queryCatalog } from "@/Entities/Catalog/model/RTKQuery";
 import { queryCategory } from "@/Entities/Category/model/RTKQuery";
+import { queryProduct } from "@/Entities/Product/modul/RTLQuery";
 
 
 export function createReduxStore(initialState?: StateTypes){
@@ -11,13 +12,19 @@ export function createReduxStore(initialState?: StateTypes){
         counter: counterReducer,
         [pokemonApi.reducerPath]: pokemonApi.reducer,
         [queryCatalog.reducerPath]: queryCatalog.reducer,
-        [queryCategory.reducerPath]: queryCategory.reducer
+        [queryCategory.reducerPath]: queryCategory.reducer,
+        [queryProduct.reducerPath]: queryProduct.reducer
     };
     const store = configureStore({
         reducer: rootReducers,
         preloadedState: initialState,
         middleware: (getDefaultMiddleware) =>
-            getDefaultMiddleware().concat([pokemonApi.middleware, queryCatalog.middleware, queryCategory.middleware])
+            getDefaultMiddleware().concat([
+                pokemonApi.middleware,
+                queryCatalog.middleware,
+                queryCategory.middleware, 
+                queryProduct.middleware
+            ])
     });
 
     return store;

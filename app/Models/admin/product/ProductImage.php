@@ -19,13 +19,19 @@ class ProductImage extends Model
 
     public function setImage(array $request): void
     {
-        $image = $request['image'];
+        foreach ($request['images'] as $image) {
 
-        $path = $image->store('public/products');
+            $imageData = [];
 
-        $request['img_path'] = $path;
+            $path = $image->store('public/products');
 
-        $this::create($request);
+            $imageData['img_path'] = $path;
+
+            $imageData['product_id'] = $request['product_id'];
+
+            $this::create($imageData);
+
+        }
     }
 
     static function deleteImage(array $path_imgs): void

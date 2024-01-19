@@ -30,9 +30,9 @@ class Dev extends Command
      */
     public function handle()
     {
-        $str = 'm';
-        $test = Product::where('title', 'like' ,"%$str%")->get();
+        $products = Product::where('catalog_id', 1)->get();
+        $catalog = Catalog::find(1);
 
-        dd($test->toArray());
+        dd($catalog->products->toArray());
     }
 }

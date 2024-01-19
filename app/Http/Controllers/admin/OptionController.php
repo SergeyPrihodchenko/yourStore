@@ -5,42 +5,38 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\admin\OptionRequest;
 use App\Models\admin\product\Option;
-use Illuminate\Support\Facades\Log;
+use Inertia\Inertia;
 
 class OptionController extends Controller
 {
+    public function index()
+    {
+        $options = Option::all();
+
+        return Inertia::render('Admin/Option/index', ['options' => $options]);
+    }
+
     public function setOption(OptionRequest $request): void
     {
-        try {
-            $request = $request->validated();
+        $request = $request->validated();
 
-            Option::create($request);
-        } catch (\Throwable $th) {
-            Log::channel('maily')->error($th->getPrevious()->getMessage());
-        }
+        Option::create($request);
+
     }
 
     public function updateOption(OptionRequest $request, $id): void
     {
-        try {
-            $request = $request->validated();
+        $request = $request->validated();
 
-            $option = Option::find($id);
+        $option = Option::find($id);
 
-            $option->upgrade($request);
-        } catch (\Throwable $th) {
-            Log::channel('maily')->error($th->getPrevious()->getMessage());
-        }
+        $option->upgrade($request);
     }
 
     public function deleteOption($id): void
     {
-        try {
-            $option = Option::find($id);
+        $option = Option::find($id);
 
-            $option->delete();
-        } catch (\Throwable $th) {
-            Log::channel('maily')->error($th->getPrevious()->getMessage());
-        }
+        $option->delete();
     }
 }
