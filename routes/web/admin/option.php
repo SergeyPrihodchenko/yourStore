@@ -4,6 +4,8 @@ use App\Http\Controllers\admin\OptionController;
 use App\Http\Controllers\admin\ValueOptionController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('admin/option', [OptionController::class, 'index'])->name('option');
+
 Route::post('admin/setOption', [OptionController::class, 'setOption'])->name('setOption');
 Route::put('admin/updateOption', [OptionController::class, 'updateOption'])->name('updateOption');
 Route::delete('admin/deleteOption', [OptionController::class, 'deleteOption'])->name('deleteOption');
