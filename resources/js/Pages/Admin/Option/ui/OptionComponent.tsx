@@ -36,12 +36,17 @@ const OptionComponent = ({options}: any) => {
         });
     }
 
-    const fetchValuesForOption = async (id: number) => {
+    const toggleValuesForOption = async (id: number) => {
         if(toggleLink) {
             const {data}: any = await ValuesForOption(id);
             setDataRows(data);
             setToggleLink(false);
         }
+    }
+
+    const toggleBackOption = () => {
+      setDataRows(options);
+      setToggleLink(true);
     }
     
     return (
@@ -58,7 +63,7 @@ const OptionComponent = ({options}: any) => {
         : 
         <TableHead>
             <TableRow>
-                <TableCell><ArrowBackIosOutlinedIcon sx={{}}/></TableCell>
+                <TableCell onClick={toggleBackOption}><ArrowBackIosOutlinedIcon sx={{}}/></TableCell>
             </TableRow>
         </TableHead> 
         }
@@ -72,7 +77,7 @@ const OptionComponent = ({options}: any) => {
             <TableRow
               key={row.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              onClick={() => {fetchValuesForOption(row.id)}}
+              onClick={() => {toggleValuesForOption(row.id)}}
             >
               <TableCell component="th" scope="row">{row.title}</TableCell>
               <TableCell align="right"><Button variant='outlined'>Изменить</Button><Button variant='outlined'>Удалить</Button></TableCell>
