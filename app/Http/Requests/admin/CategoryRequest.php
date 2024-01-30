@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -11,7 +11,7 @@ class CategoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,8 +22,8 @@ class CategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'nullable|numeric',
-            'title' => 'requared|string|max:100'
+            // 'id' => 'nullable|numeric',
+            'title' => 'required|string|max:100'
         ];
     }
 }
