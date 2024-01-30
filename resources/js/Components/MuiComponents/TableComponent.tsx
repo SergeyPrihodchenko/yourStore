@@ -12,11 +12,11 @@ import { router } from '@inertiajs/react';
 type TTableComponent = {
   rows?: any,
   style?: any,
-  onDelete?: (param:number)=> void
+  onDelete: (param:number)=> void
 }
 export default function TableComponent({rows, style, onDelete }: TTableComponent) {
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} sx={{maxHeight: '400px', overflowY:'scroll'}}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
