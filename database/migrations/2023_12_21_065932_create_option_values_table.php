@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('option_values', function (Blueprint $table) {
             $table->id();
             $table->foreignId('option_id')->index()->constrained('options')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('value');
+            $table->string('title');
         });
     }
 

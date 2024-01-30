@@ -4,7 +4,8 @@ import {counterReducer} from "@/Components/Counter/slice/counterSlice";
 import {pokemonApi} from "@/Components/PokemonList/services/pokemon";
 import { queryCatalog } from "@/Entities/Catalog/model/RTKQuery";
 import { queryCategory } from "@/Entities/Category/model/RTKQuery";
-import { queryProduct } from "@/Entities/Product/modul/RTLQuery";
+import { queryProduct } from "@/Entities/Product/modul/RTKQuery";
+import { queryOption } from "@/Entities/Option/model/RTKQuery";
 
 
 export function createReduxStore(initialState?: StateTypes){
@@ -13,7 +14,8 @@ export function createReduxStore(initialState?: StateTypes){
         [pokemonApi.reducerPath]: pokemonApi.reducer,
         [queryCatalog.reducerPath]: queryCatalog.reducer,
         [queryCategory.reducerPath]: queryCategory.reducer,
-        [queryProduct.reducerPath]: queryProduct.reducer
+        [queryProduct.reducerPath]: queryProduct.reducer,
+        [queryOption.reducerPath]: queryOption.reducer
     };
     const store = configureStore({
         reducer: rootReducers,
@@ -23,7 +25,8 @@ export function createReduxStore(initialState?: StateTypes){
                 pokemonApi.middleware,
                 queryCatalog.middleware,
                 queryCategory.middleware, 
-                queryProduct.middleware
+                queryProduct.middleware,
+                queryOption.middleware
             ])
     });
 
