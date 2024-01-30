@@ -43,7 +43,7 @@ const CategoryComponent = ({categories}: CategoryComponentProps) => {
                   Категория добавлена
                   </Alert>
               }
-              {isDelete && <Alert  severity="error" sx={{width:"100%",  marginBottom: '10px', position: 'absolute', transition:'all .4s', top: '78px', left: 0, zIndex: 1000}}>
+              {isDelete && <Alert  severity="error" sx={{width:"100%",  marginBottom: '10px', position: 'absolute', top: '78px', left: 0, zIndex: 1000}}>
                   Категория удалена
                   </Alert> }
             
@@ -52,7 +52,7 @@ const CategoryComponent = ({categories}: CategoryComponentProps) => {
                 value={data.title} 
                 onChange={e => setData('title', e.target.value)}  
                 variant="outlined" 
-                helperText='описание действий кнопки'
+                helperText='Добавьте категорию'
               />
                 <Button 
                   type="submit" 

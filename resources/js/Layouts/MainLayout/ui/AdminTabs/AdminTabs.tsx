@@ -3,8 +3,6 @@ import CustomLink, {VariantLink} from "@/Components/CustomLink/CustomLink";
 
 interface  AdminTabsProps{}
 
-// console.log('current route',route().current('admin.product'))
-
 const AdminTabs = (props: AdminTabsProps) =>{
 
     return (
@@ -17,6 +15,9 @@ const AdminTabs = (props: AdminTabsProps) =>{
             </li>
             <li className={s.adminPanelItem}>
                 <CustomLink href={route('category.index')} variant={VariantLink.DEFAULT} active={route().current('category.index')} >Категории</CustomLink>
+            </li>
+            <li className={s.adminPanelItem}>
+                <CustomLink href={route('option')} variant={VariantLink.DEFAULT} active={route().current('option')} >Опции</CustomLink>
             </li>
         </ul>
 
