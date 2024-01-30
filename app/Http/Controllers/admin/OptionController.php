@@ -24,18 +24,20 @@ class OptionController extends Controller
 
     }
 
-    public function updateOption(OptionRequest $request, $id): void
+    public function updateOption(OptionRequest $request): void
     {
         $request = $request->validated();
 
-        $option = Option::find($id);
+        $option = Option::find($request['id']);
 
-        $option->upgrade($request);
+        $option->update($request);
     }
 
-    public function deleteOption($id): void
+    public function deleteOption(OptionRequest $request): void
     {
-        $option = Option::find($id);
+        $request = $request->validated();
+
+        $option = Option::find($request['id']);
 
         $option->delete();
     }

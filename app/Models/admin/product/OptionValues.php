@@ -12,11 +12,11 @@ class OptionValues extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id',
+        'option_id',
         'title'
     ];
 
-    public $titmestamps = false;
+    public $timestamps = false;
 
     public function option(): BelongsTo
     {

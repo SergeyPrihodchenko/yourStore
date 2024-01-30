@@ -27,20 +27,21 @@ class ValueOptionController extends Controller
         OptionValues::create($request);
     }
 
-    public function updateValueOption($id, OptionRequest $request)
+    public function updateValueOption(OptionRequest $request)
     {
 
         $request = $request->validated();
 
-        $value_option = OptionValues::find($id);
+        $value_option = OptionValues::find($request['id']);
 
         $value_option->update($request);
     }
 
-    public function deleteValueOption($id)
+    public function deleteValueOption(OptionRequest $request)
     {
+        $request = $request->validated();
 
-        $value_option = OptionValues::find($id);
+        $value_option = OptionValues::find($request['id']);
 
         $value_option->delete();
     }
