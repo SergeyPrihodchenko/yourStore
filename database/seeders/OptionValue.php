@@ -22,7 +22,7 @@ class OptionValue extends Seeder
         $j = 1;
         for ($i=0; $i < 5; $i++) { 
             for ($k=0; $k < 3; $k++) { 
-                $data[] = ['option_id' => $j, 'value' => fake()->name()];
+                $data[] = ['option_id' => $j, 'title' => fake()->name()];
             }
             if($j >= 5) {
                 $j = 1;
