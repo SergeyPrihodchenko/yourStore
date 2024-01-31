@@ -23,7 +23,8 @@ class OptionRequest extends FormRequest
     {
         return [
             'title' => 'nullable|string|max:100',
-            'id' => 'nullable|numeric'
+            'id' => 'nullable|numeric',
+            'option_id' => 'nullable|numeric',
         ];
     }
 }

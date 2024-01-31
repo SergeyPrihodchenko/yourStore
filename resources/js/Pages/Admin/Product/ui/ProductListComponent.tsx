@@ -1,7 +1,7 @@
 import AutocompleteComponent from "@/Components/MuiComponents/AutocompliteComponent";
 import TableComponent from "@/Components/MuiComponents/TableComponent";
 import { useGetCatalogsByIdQuery } from "@/Entities/Catalog/model/RTKQuery";
-import { useFindProductsByTitleMutation, useGetProductsByCatalogQuery } from "@/Entities/Product/modul/RTKQuery";
+import { useFindProductsByTitleMutation, useGetProductsByCatalogQuery } from "@/Entities/Product/model/RTKQuery";
 import { Grid, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 

@@ -1,30 +1,21 @@
 import { axiosBaseQuery } from "@/App/providers/StoreProvider/config/axiosConfigQuery";
 import { createApi } from "@reduxjs/toolkit/query/react";
 
-export const queryOption = createApi({
-    reducerPath: 'query/option',
+export const queryValueForOption = createApi({
+    reducerPath: 'query/value',
     baseQuery: axiosBaseQuery({baseUrl: '/admin/option/'}),
     tagTypes: ['Option'],
     endpoints: (build) => ({
-        ValuesForOption: build.mutation({
+        valueDelete: build.mutation({
             query: (arg: number) => ({
-                url: 'valuesForOption',
-                method: 'POST',
-                data: {id: arg}
-            })
-        }),
-
-        deleteOption: build.mutation({
-            query: (arg: number) => ({
-                url: 'deleteOption',
+                url: 'deleteValueOption',
                 method: 'DELETE',
                 data: {id: arg}
             })
         }),
-
-        updateOption: build.mutation({
+        valueUpdate: build.mutation({
             query: (arg: number) => ({
-                url: 'updateOption',
+                url: 'updateValueOption',
                 method: 'PUT',
                 data: {id: arg}
             })
@@ -33,7 +24,6 @@ export const queryOption = createApi({
 })
 
 export const {
-    useValuesForOptionMutation,
-    useDeleteOptionMutation,
-    useUpdateOptionMutation
-} = queryOption
+    useValueDeleteMutation,
+    useValueUpdateMutation
+} = queryValueForOption
