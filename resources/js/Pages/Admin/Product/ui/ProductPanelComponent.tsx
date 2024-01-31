@@ -1,13 +1,16 @@
-import { Button, Grid, TextField } from "@mui/material";
+import { Box, Button, Grid, TextField } from "@mui/material";
 import AutocompleteComponent from "../../../../Components/MuiComponents/AutocompliteComponent";
 import TextAreaComponent from "../../../../Components/MuiComponents/TextAreaComponent";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
 import { useEffect, useState } from "react";
 import {Head, router} from "@inertiajs/react";
+import { Option } from "@/Entities/Option/model/types";
+import CloseIcon from '@mui/icons-material/Close';
 
-const ProductPanelComponent = ({categories, catalogs }: any) => {
-    
+
+const ProductPanelComponent = ({categories, catalogs, options, valuesForOptions }: any) => {
+
     const formData = new FormData();
 
     const [filtredCatalogs, setFiltredCatalog] = useState([]);
@@ -15,13 +18,16 @@ const ProductPanelComponent = ({categories, catalogs }: any) => {
     const [files, setFiles] = useState<any>([]);
     const [categoryId, setCategoryId] = useState(null);
     const [catalogId, setCatalogId] = useState(null);
+    const [optionId, setOptionId] = useState(null);
+    const [optionsEl, setOptionsEl] = useState<Option[]>([]);
 
     const [productData, setProductData] = useState<any>({
         title: '',
         catalog_id: '',
         price: '',
         quantity: '',
-        description: ''
+        description: '',
+        options: []
     });
 
     const VisuallyHiddenInput = styled('input')({
@@ -54,12 +60,35 @@ const ProductPanelComponent = ({categories, catalogs }: any) => {
         }
     }
 
+    const handleChangeOption = (e: any) => {
+        setOptionId(e.target.value);
+    }
+
+    const addOption = () => {
+        let checkUnique = true;
+        const optionArr = options.filter((option: Option) => option.id == optionId);        
+        optionsEl.forEach((el: Option) => {
+            if(el.id == optionArr[0].id) {
+                checkUnique = false;
+            }
+        });
+        if(checkUnique) {
+            setOptionsEl([...optionsEl, optionArr[0]]);
+            setProductData({...productData, options: [...productData.options, optionId]});
+        }
+    }
+    
     const filterCatalogs = () => {
         if(categoryId == null || categoryId == undefined) {
             setFiltredCatalog([]);
         } else {
             setFiltredCatalog(catalogs.filter((catalog: Catalog) => catalog.category_id == categoryId));
         }
+    }
+    
+    const closeElOptions = (id: number) => {
+        setProductData({...productData, options: productData.options.filter((option: number) => option != id)});
+        setOptionsEl(optionsEl.filter((option: Option) => option.id != id));
     }
 
     useEffect(() => {
@@ -79,13 +108,16 @@ const ProductPanelComponent = ({categories, catalogs }: any) => {
       const sendData = () => {
 
         for (const key in productData) {
+            if(key == 'options') {                
+                formData.set(key, JSON.stringify(productData[key]));
+            }
             formData.set(key, productData[key]);
         }
         
         for (const el of files) {
             formData.append('images[]', el[0]);
         }        
-        
+
         router.post(route('setProduct'), formData, {
             onSuccess: (result) => {
                 for (const key in productData) {
@@ -96,6 +128,7 @@ const ProductPanelComponent = ({categories, catalogs }: any) => {
                 setProductData(productData);
                 setFiles([]);
                 setPreviewImg([]);
+                setOptionsEl([]);
             },
             onError: (err) => {
                 console.log(err);
@@ -108,17 +141,26 @@ const ProductPanelComponent = ({categories, catalogs }: any) => {
         <Grid container gap={1} sx={{maxWidth: '1400px', padding: '10px', border: 'solid 1px black', margin: '77px auto 0 auto', justifyContent: 'center'}}>
             <Head title="Product" />
             <Grid item xs={12} sx={{margin: '0 auto', textAlign: 'center'}}>
-                <TextField label="Название" variant="outlined" helperText="Правила к записи" value={productData.title} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {handleChange(e.target.value, 'title')}}/>
+                <TextField label="Название" variant="outlined" helperText="Правила к записи" value={productData.title} onChange={(e: any) => {handleChange(e.target.value, 'title')}}/>
             </Grid>
             <Grid item xs={12} sx={{display: 'flex', justifyContent: 'center'}}>
-                <AutocompleteComponent noOptionsText='Нет категорий' style={{marginRight: '10px'}} options={categories} label="Категория" handleChange={handleChangeCategory}/>
-                <AutocompleteComponent noOptionsText='Нет каталогов' style={{}} options={filtredCatalogs} label={categoryId == null ? "Выберите категорию" : "Каталог"} handleChange={handleChangeCatalog}/>
+                <AutocompleteComponent noOptionsText='Нет категорий' style={{marginRight: '10px'}} options={categories} label="Категории" handleChange={handleChangeCategory}/>
+                <AutocompleteComponent noOptionsText='Нет каталогов' style={{}} options={filtredCatalogs} label={categoryId == null ? "Выберите категорию" : "Каталоги"} handleChange={handleChangeCatalog}/>
             </Grid>
             <Grid item xs={12} sx={{display: 'flex', justifyContent: 'center'}}>
-                <TextField label="Цена" variant="outlined" type="number" helperText="Правила к записи" value={productData.price} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {handleChange(e.target.value, 'price')}}/>
+                <TextField label="Цена" variant="outlined" type="number" helperText="Правила к записи" value={productData.price} onChange={(e: any) => {handleChange(e.target.value, 'price')}}/>
             </Grid>
             <Grid item xs={12} sx={{display: 'flex', justifyContent: 'center'}}>
-                <TextField label="Количество" variant="outlined" type="number" helperText="Правила к записи" value={productData.quantity} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {handleChange(e.target.value, 'quantity')}}/>
+                <TextField label="Количество" variant="outlined" type="number" helperText="Правила к записи" value={productData.quantity} onChange={(e: any) => {handleChange(e.target.value, 'quantity')}}/>
+            </Grid>
+            <Grid item xs={12} sx={{display: 'flex', justifyContent: 'center'}}>
+                <AutocompleteComponent noOptionsText="Нет опций" style={{}} label="Опции" options={options} handleChange={handleChangeOption}/>
+                <Button variant="outlined" onClick={addOption}>Добавить в список</Button>
+            </Grid>
+            <Grid item xs={12} sx={{display: 'flex', justifyContent: 'center'}}>
+                <Box>
+                    {optionsEl.map((option: Option) => (<span key={option.id}>{option.title} <CloseIcon sx={{'&:hover': {cursor: 'pointer'}}} onClick={() => {closeElOptions(option.id)}}/>| </span>))}
+                </Box>
             </Grid>
             <Grid item xs={12} sx={{display: 'flex', justifyContent: 'center'}}>
                 <TextAreaComponent style={{width: {xs: '360px', ml: '900px'}}} value={productData.description} handleChange={handleChange}/>
