@@ -1,6 +1,7 @@
+import AlertComponent from "@/Components/MuiComponents/AlertComponent";
 import TableComponent from "@/Components/MuiComponents/TableComponent";
 import { router, useForm } from "@inertiajs/react";
-import { Alert, Button, Grid, TextField, Typography } from "@mui/material";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 
 interface Category{
@@ -39,13 +40,19 @@ const CategoryComponent = ({categories}: CategoryComponentProps) => {
           
           <Typography variant="h4" sx={{marginBottom: '20px'}}>Добавление категории</Typography>
             <Grid item xs={12} sx={{position:'relative',display: "flex", gap:'10px', alignItems:'baseline', marginBottom: '50px'}}>
-            {recentlySuccessful &&  <Alert  severity="success" sx={{width:"100%",  marginBottom: '10px', position: 'absolute', transition:'all .4s', top: '78px', left: 0, zIndex: 1000}}>
-                  Категория добавлена
-                  </Alert>
-              }
-              {isDelete && <Alert  severity="error" sx={{width:"100%",  marginBottom: '10px', position: 'absolute', top: '78px', left: 0, zIndex: 1000}}>
-                  Категория удалена
-                  </Alert> }
+            {recentlySuccessful &&  <AlertComponent 
+              alertText="Категория добавлена" 
+              severity="success"
+              styleAlert={{width: '100%', position: 'absolute', top: '78px', left: 0, zIndex: 1000}}
+              />
+            }
+              
+              {isDelete && <AlertComponent 
+                alertText="Категория удалена" 
+                severity="error" 
+                variant="standard"
+                styleAlert={{width: '100%', position: 'absolute', top: '78px', left: 0, zIndex: 1000}} 
+              />}
             
               <TextField 
                 label="Название категории" 
@@ -65,7 +72,7 @@ const CategoryComponent = ({categories}: CategoryComponentProps) => {
                 
             </Grid>
             <Grid item xs={12}>
-                  <TableComponent rows={categories} onDelete={handleDelete} />
+                  <TableComponent stickyHeader rows={categories} onDelete={handleDelete} />
             </Grid>
         </Grid>
     );
