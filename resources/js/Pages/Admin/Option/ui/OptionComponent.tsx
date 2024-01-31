@@ -1,6 +1,6 @@
 import { router } from "@inertiajs/react";
 import { Button, Grid, TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -18,6 +18,8 @@ const OptionComponent = ({options}: any) => {
     const [toggleLink, setToggleLink] = useState(true);
     const [valueTitle, setValueTitle] = useState('');
     const [idOption, setIdOption] = useState(0);
+    const [background, setBackground] = useState('#949494');
+    const [cursor, setCoursor] = useState('pointer');
 
     const [ValuesForOption] = useValuesForOptionMutation();
 
@@ -114,6 +116,16 @@ const OptionComponent = ({options}: any) => {
         })
       }
     }
+
+    useEffect(() => {
+      if(toggleLink) {
+        setCoursor('pointer');
+        setBackground('#949494');
+      } else {
+        setCoursor('');
+        setBackground('');
+      }
+    }, [toggleLink])
     
     return (
         <Grid container>
@@ -129,7 +141,7 @@ const OptionComponent = ({options}: any) => {
         : 
         <TableHead>
             <TableRow>
-                <TableCell sx={{'&:hover': {background:'#7e7e7e', cursor: 'pointer'}}} onClick={toggleBackOption}><ArrowBackIosOutlinedIcon/><span>назад</span></TableCell>
+                <TableCell sx={{'&:hover': {background:'#949494', cursor: 'pointer'}}} onClick={toggleBackOption}><ArrowBackIosOutlinedIcon/><span>назад</span></TableCell>
             </TableRow>
         </TableHead> 
         }
@@ -145,7 +157,7 @@ const OptionComponent = ({options}: any) => {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               onClick={(e) => {toggleValuesForOption(e, row.id)}}
             >
-              <TableCell component="th" className="toggleLink" scope="row" sx={{'&:hover': {background: '#949494', cursor: 'pointer'}}}>{row.title}</TableCell>
+              <TableCell component="th" className="toggleLink" scope="row" sx={{'&:hover': {background: background, cursor:cursor}}}>{row.title}</TableCell>
               <TableCell align="right"><Button variant='outlined' onClick={() => updateOptionOrValue(row.id)}>Изменить</Button><Button variant='outlined' onClick={() => {deleteOptionOrValue(row.id)}}>Удалить</Button></TableCell>
             </TableRow>
           ))}
