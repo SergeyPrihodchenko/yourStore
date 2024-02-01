@@ -1,0 +1,11 @@
+.adminPanelList{
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    max-width: 1800px;
+    margin: 0 auto;
+}
+
+.adminPanelItem{
+    display: flex;
+}

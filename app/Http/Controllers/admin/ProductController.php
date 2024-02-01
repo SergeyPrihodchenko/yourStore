@@ -20,13 +20,24 @@ class ProductController extends Controller
         $categories = Category::all();
         $catalogs = Catalog::all();
         $products = Product::all();
-        $options = Option::all();
-        $valuesForOptions = OptionValues::all();
 
         return Inertia::render('Admin/Product/index', [
             'categories' => $categories, 
             'catalogs' => $catalogs,
-            'products' => $products,
+            'products' => $products
+        ]);
+    }
+
+    public function indexPanel() {
+
+        $categories = Category::all();
+        $catalogs = Catalog::all();
+        $options = Option::all();
+        $valuesForOptions = OptionValues::all();
+
+        return Inertia::render('Admin/Product/indexPanel', [
+            'categories' => $categories, 
+            'catalogs' => $catalogs,
             'options' => $options,
             'valuesForOptions' => $valuesForOptions
         ]);
@@ -67,8 +78,9 @@ class ProductController extends Controller
 
     public function deleteProduct(string $id): void
     {
+        
         $product = Product::find($id);
-
+        
         $images = $product->images;
 
         $imgs_path = [];
