@@ -20,7 +20,6 @@ const AlertComponent = (props: AlertComponentProps) =>{
       variant={variant}
       severity={severity} 
       sx={styleAlert}
-      // sx={{width:"100%",  marginBottom: '10px', position: 'absolute', transition:'all .4s', top: '78px', left: 0, zIndex: 1000}}
     >
       {alertText}
     </Alert>

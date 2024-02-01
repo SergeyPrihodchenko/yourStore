@@ -1,8 +1,11 @@
 import AlertComponent from "@/Components/MuiComponents/AlertComponent";
+import SnackbarComponent from "@/Components/MuiComponents/SnackbarComponent";
 import TableComponent from "@/Components/MuiComponents/TableComponent";
+import CloseIcon from "@mui/icons-material/Close";
 import { router, useForm } from "@inertiajs/react";
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import { Alert, Button, Grid, IconButton, Slide, SlideProps, TextField, Typography } from "@mui/material";
 import { useState } from "react";
+import { TransitionProps } from "@mui/material/transitions";
 
 interface Category{
   id: number;
@@ -11,26 +14,30 @@ interface Category{
 interface CategoryComponentProps{
   categories: Category[];
 }
+function SlideTransition(props: SlideProps) {
+  return <Slide {...props} direction="up" />;
+}
 
 const CategoryComponent = ({categories}: CategoryComponentProps) => {
   const {data, setData, post, errors, reset, recentlySuccessful } = useForm({
     title: ''
   });
-  const [isDelete, setIsDelete] = useState(false);
+  const [snackbarDelState, setSnackbarDelState] = useState({open: false, transition: Slide });
+  
   const handleSubmit = () =>{
     post(route('category.store'), 
     {onSuccess: ()=> {if(!recentlySuccessful) reset('title')}})
 
+  }
+  const handleClose = () =>{
+    setSnackbarDelState({...snackbarDelState,open: false});
   }
   const handleDelete = (param: number) => {
     router.delete(route('category.destroy', param), 
     {
       preserveScroll: true, 
       onSuccess: () => {
-        setIsDelete(true);
-        setTimeout(()=>{
-          setIsDelete(false);
-        }, 1000)
+        setSnackbarDelState({open: true, transition: SlideTransition});
       }
     });
   }
@@ -46,13 +53,22 @@ const CategoryComponent = ({categories}: CategoryComponentProps) => {
               styleAlert={{width: '100%', position: 'absolute', top: '78px', left: 0, zIndex: 1000}}
               />
             }
-              
-              {isDelete && <AlertComponent 
+              {/* {isDelete && <AlertComponent 
                 alertText="Категория удалена" 
                 severity="error" 
                 variant="standard"
                 styleAlert={{width: '100%', position: 'absolute', top: '78px', left: 0, zIndex: 1000}} 
-              />}
+              />} */}
+              <SnackbarComponent 
+                open={snackbarDelState.open}
+                severity="error"
+                onSnackClose={handleClose}
+                TransitionComponent={snackbarDelState.transition}
+                autoHideDuration={1200}
+              >
+                <span>Категория удалена</span>
+              </SnackbarComponent>
+                
             
               <TextField 
                 label="Название категории" 
