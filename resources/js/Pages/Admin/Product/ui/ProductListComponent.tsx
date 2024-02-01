@@ -2,6 +2,7 @@ import AutocompleteComponent from "@/Components/MuiComponents/AutocompliteCompon
 import TableComponent from "@/Components/MuiComponents/TableComponent";
 import { useGetCatalogsByIdQuery } from "@/Entities/Catalog/model/RTKQuery";
 import { useFindProductsByTitleMutation, useGetProductsByCatalogQuery } from "@/Entities/Product/model/RTKQuery";
+import { router } from "@inertiajs/react";
 import { Grid, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 
@@ -35,6 +36,18 @@ const ProductListComponent = ({categories, products}: any) => {
         setCatalogId(e.target.value);
     }
 
+    const handleDelete = (id: number) => {
+        router.delete(route('deleteProduct', id), {
+            onSuccess: (res) => {
+                setListProducts(res.props.products);
+            },
+            onError: (err) => {
+                console.log(err);
+            }
+        }); 
+    }
+    console.log(route('deleteProduct', 1));
+    
     useEffect(() => {
         if(serchStr.length > 2) {
             fetchFindByTitle();
@@ -53,7 +66,7 @@ const ProductListComponent = ({categories, products}: any) => {
                 <AutocompleteComponent label="Каталоги" noOptionsText="Нет каталогов" options={isSuccessCategory ? catalogs.catalogs : []} style={{}} handleChange={handleChangeCatalogs}/>
             </Grid>
             <Grid item xs={12}>
-                <TableComponent rows={isSuccessCatalog ? productsByCatalog.products : listProducts}/>
+                <TableComponent onDelete={handleDelete} rows={isSuccessCatalog ? productsByCatalog.products : listProducts}/>
             </Grid>
         </Grid>
     );

@@ -29,7 +29,8 @@ class RequestProduct extends FormRequest
             'quantity' => 'nullable|numeric',
             'images' => 'nullable|array',
             'images.*' => 'nullable|image',
-            'value' => 'nullable|string|max:100'
+            'value' => 'nullable|string|max:100',
+            'options' => 'nullable|string|max:200'
         ];
     }
 }

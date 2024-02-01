@@ -3,12 +3,12 @@ import ProductPanelComponent from "./ui/ProductPanelComponent";
 import ProductListComponent from "./ui/ProductListComponent";
 import AdminProductTabs from "./ui/components/AdminProductTabs";
 
-const AdminProductPanel = ({categories, catalogs, products}: any) => {
+const AdminProductPanel = ({categories, catalogs, options, valuesForOptions}: any) => {
     
     return (
         <MainLayout>
             <AdminProductTabs/>
-            <ProductListComponent categories={categories} catalogs={catalogs} products={products}/>
+            <ProductPanelComponent categories={categories} catalogs={catalogs} options={options} valuesForOptions={valuesForOptions}/>
         </MainLayout>
     );
 }
