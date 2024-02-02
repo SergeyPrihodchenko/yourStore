@@ -5,7 +5,9 @@ namespace App\Console\Commands;
 use App\Models\admin\category\Catalog;
 use App\Models\admin\category\Category;
 use App\Models\admin\product\Option;
+use App\Models\admin\product\OptionValues;
 use App\Models\admin\product\Product;
+use App\Models\admin\product\ProductValue;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
@@ -30,9 +32,10 @@ class Dev extends Command
      */
     public function handle()
     {
-        $products = Product::where('catalog_id', 1)->get();
-        $catalog = Catalog::find(1);
+        $str = 'public/products/fwctzxprjnnDehDbTZtpnZ4Ino4qJFMtbGxxcbr6.png';
 
-        dd($catalog->products->toArray());
+        $productValues = str_replace('public', '/storage', $str);
+
+        dd($productValues);
     }
 }

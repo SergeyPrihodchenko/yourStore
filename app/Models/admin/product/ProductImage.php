@@ -19,12 +19,15 @@ class ProductImage extends Model
 
     public function setImage(array $request): void
     {
+
         foreach ($request['images'] as $image) {
 
             $imageData = [];
 
             $path = $image->store('public/products');
-
+            
+            $path = str_replace('public', '/storage', $path);
+            
             $imageData['img_path'] = $path;
 
             $imageData['product_id'] = $request['product_id'];

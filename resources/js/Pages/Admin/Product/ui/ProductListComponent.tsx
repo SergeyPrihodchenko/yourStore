@@ -46,7 +46,10 @@ const ProductListComponent = ({categories, products}: any) => {
             }
         }); 
     }
-    console.log(route('deleteProduct', 1));
+
+    const linkShowProduct = (id: number) => {
+        router.get(route('indexShowOption', id));
+    }
     
     useEffect(() => {
         if(serchStr.length > 2) {
@@ -66,7 +69,7 @@ const ProductListComponent = ({categories, products}: any) => {
                 <AutocompleteComponent label="Каталоги" noOptionsText="Нет каталогов" options={isSuccessCategory ? catalogs.catalogs : []} style={{}} handleChange={handleChangeCatalogs}/>
             </Grid>
             <Grid item xs={12}>
-                <TableComponent onDelete={handleDelete} rows={isSuccessCatalog ? productsByCatalog.products : listProducts}/>
+                <TableComponent activeRow={true} onClickF={linkShowProduct} onDelete={handleDelete}  rows={isSuccessCatalog ? productsByCatalog.products : listProducts}/>
             </Grid>
         </Grid>
     );

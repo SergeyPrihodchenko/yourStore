@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -7,14 +6,19 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
-import { router } from '@inertiajs/react';
 
 type TTableComponent = {
   rows?: any,
   style?: any,
-  onDelete: (param:number)=> void
+  onClickF?: any, 
+  onDelete: (param:number)=> void, 
+  activeRow?: boolean
 }
-export default function TableComponent({rows, style, onDelete }: TTableComponent) {
+export default function TableComponent({style, rows, onDelete, onClickF = null, activeRow = false }: TTableComponent) {
+
+  const activeStyle = {
+    hover: {background:'#949494', cursor: 'pointer'}
+  }
   return (
     <TableContainer component={Paper} sx={{maxHeight: '400px', overflowY:'scroll'}}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -23,13 +27,13 @@ export default function TableComponent({rows, style, onDelete }: TTableComponent
             <TableCell>Название</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody sx={{style}}>
+        <TableBody>
           {rows.map((row: any) => (
             <TableRow
               key={row.id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              sx={{'&:last-child td, &:last-child th': { border: 0 }}}
             >
-              <TableCell component="th" scope="row">{row.title}</TableCell>
+              <TableCell sx={{'&:hover': activeRow ? activeStyle.hover : {}}} component="th" scope="row" onClick={() => {onClickF(row.id)}}>{row.title}</TableCell>
               <TableCell align="right">
                 <Button variant='outlined' >Изменить</Button>
                 <Button 

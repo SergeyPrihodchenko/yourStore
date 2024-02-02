@@ -9,8 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import ArrowBackIosOutlinedIcon from '@mui/icons-material/ArrowBackIosOutlined';
-import { useDeleteOptionMutation, useUpdateOptionMutation, useValuesForOptionMutation } from "@/Entities/Option/model/RTKQuery";
-import { useValueUpdateMutation, useValueDeleteMutation } from "@/Entities/ValuesForOption/model/RTKQuery";
+import { useValuesForOptionMutation } from "@/Entities/Option/model/RTKQuery";
 
 const OptionComponent = ({options}: any) => {
 

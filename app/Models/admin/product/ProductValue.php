@@ -11,7 +11,7 @@ class ProductValue extends Model
 
     public $timestamps = false;
 
-    private $fillable = [
+    protected $fillable = [
         'product_id',
         'option_value_id',
         'quantity'
