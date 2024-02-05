@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\admin\CatalogRequest;
 use App\Http\Requests\CategoryRequest;
 use App\Models\admin\category\Catalog;
 use App\Models\admin\category\Category;
@@ -19,7 +20,14 @@ class CatalogController extends Controller
 
         $data['catalogs'] = Catalog::all();
 
-        return Inertia::render('Admin/Catalog/index', ['data' => $data]);
+        return Inertia::render('Admin/Catalog/CatalogPage', ['list' => $data]);
+    }
+
+    public function store(CatalogRequest $catalogRequest)
+    {
+      $catalogRequest = $catalogRequest->validated();
+
+      Catalog::create($catalogRequest);
     }
 
     public function catalogsByCategory($id): array
@@ -29,5 +37,9 @@ class CatalogController extends Controller
         $catalogs = $category->catalogs;
 
         return ['catalogs' => $catalogs];
+    }
+    public function destroy(Catalog $catalog)
+    {
+      $catalog->delete();
     }
 }

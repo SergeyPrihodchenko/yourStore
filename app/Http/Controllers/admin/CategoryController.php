@@ -13,7 +13,7 @@ class CategoryController extends Controller
     {
         $categories = Category::all();
 
-        return Inertia::render('Admin/Category/index', ['categories' => $categories]);
+        return Inertia::render('Admin/Category/CategoryPage', ['categories' => $categories]);
     }
     public function store(CategoryRequest $categoryRequest)
     {

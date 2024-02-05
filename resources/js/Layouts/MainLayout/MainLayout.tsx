@@ -2,7 +2,7 @@ import s from  './MainLayout.module.css';
 import {ReactNode} from "react";
 import Header from "@/Layouts/MainLayout/ui/Header";
 import AdminTabs from "@/Layouts/MainLayout/ui/AdminTabs/AdminTabs";
-import {router} from "@inertiajs/react";
+import  Container  from '@mui/material/Container';
 interface MainLayoutProps {
     children?: ReactNode;
     isAdmin?: boolean;
@@ -16,7 +16,9 @@ const MainLayout = (props: MainLayoutProps) => {
 
             <main className={ s.mainWithoutTabPanel}>
                 {isAdmin && <AdminTabs />}
-                {children}
+                <Container>
+                  {children}
+                </Container>
             </main>
             <footer className={s.footer}>footer</footer>
         </div>

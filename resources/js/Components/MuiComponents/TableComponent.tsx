@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -7,21 +6,21 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
-import { router } from '@inertiajs/react';
 
 type TTableComponent = {
+  columnTitle?: string,
   rows?: any,
   style?: any,
   stickyHeader?: boolean,
   onDelete: (param:number)=> void
 }
-export default function TableComponent({rows, style, onDelete, stickyHeader=false }: TTableComponent) {
+export default function TableComponent({rows, style, onDelete, stickyHeader=false, columnTitle="Название" }: TTableComponent) {
   return (
     <TableContainer component={Paper} sx={{maxHeight: '400px', overflowY:'scroll'}}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table" stickyHeader={stickyHeader}>
+      <Table sx={{ minWidth: 500 }} aria-label="simple table" stickyHeader={stickyHeader}>
         <TableHead>
           <TableRow>
-            <TableCell align='center' style={{width: '60%'}}>Название</TableCell>
+            <TableCell align='center' style={{width: '60%'}}>{columnTitle}</TableCell>
             <TableCell align='center'  style={{width: '40%'}}>Действия</TableCell>
           </TableRow>
         </TableHead>
@@ -31,7 +30,6 @@ export default function TableComponent({rows, style, onDelete, stickyHeader=fals
               key={row.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              {/* <TableCell component="th" scope="row">{row.title}</TableCell> */}
               <TableCell>{row.title}</TableCell>
               <TableCell align="right" sx={{display: 'flex', gap:'10px'}}>
                 <Button 
