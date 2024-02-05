@@ -7,7 +7,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Button, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Category } from "@/Entities/Category/model/types.model";
+import { Category } from "@/Entities/Category/model/types";
 
 export default function TableComponent({ categories }: any) {
     const [data, setData] = useState([]);
