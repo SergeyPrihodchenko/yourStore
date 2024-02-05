@@ -11,6 +11,7 @@ use App\Models\admin\product\OptionValues;
 use App\Models\admin\product\Product;
 use App\Models\admin\product\ProductImage;
 use App\Models\admin\product\ProductOption;
+use App\Models\admin\product\ProductValue;
 use Inertia\Inertia;
 
 class ProductController extends Controller
@@ -43,6 +44,32 @@ class ProductController extends Controller
         ]);
     }
 
+    public function indexShowOption(int $id)
+    {
+        $product = Product::find($id);
+
+        $images = $product->images->toArray();
+
+        $options = $product->options->toArray();
+
+        $values_id = ProductValue::where('product_id', $id)->get('value_option_id');
+        
+        $values = OptionValues::find($values_id);
+
+        $catalog = Catalog::find($product->catalog_id);
+
+        $category = Category::find($catalog->category_id);
+
+        return Inertia::render('Admin/Product/indexShowOptin', [
+            'product' => $product, 
+            'images' => $images,
+            'options' => $options,
+            'values' => $values,
+            'catalog' => $catalog,
+            'category' => $category
+        ]);
+    }
+
     public function serchProduct(RequestProduct $request)
     {
         $value = $request->validated('value');
@@ -64,7 +91,7 @@ class ProductController extends Controller
     public function setProduct(RequestProduct $request)
     {
         $request = $request->validated();
-        
+
         $product = Product::create($request);
 
         $request['product_id'] = $product->id;
@@ -73,7 +100,9 @@ class ProductController extends Controller
 
         $product_image->setImage($request);
 
-        ProductOption::forOptions($request['options'], $product->id);
+        if(!empty($request['options'])) {
+            ProductOption::forOptions($request['options'], $product->id);
+        }
     }
 
     public function deleteProduct(string $id): void

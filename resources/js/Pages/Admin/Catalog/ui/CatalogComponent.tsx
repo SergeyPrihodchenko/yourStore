@@ -3,30 +3,36 @@ import TableComponent from "@/Components/MuiComponents/TableComponent";
 import { Catalog } from "@/Entities/Catalog/model/types";
 
 import { router, useForm } from "@inertiajs/react";
-import { Box, Button, Grid, TextField } from "@mui/material";
+import { Box, Button, Grid, Slide, SlideProps, TextField } from "@mui/material";
 import { useState } from "react";
 import { listData } from "../CatalogPage";
 import DialogComponent from "@/Components/MuiComponents/DialogComponent";
+import SnackbarComponent from "@/Components/MuiComponents/SnackbarComponent";
 
 
 interface CatalogComponentProps{
   list: listData;
 }
+function SlideTransition(props: SlideProps) {
+  return <Slide {...props} direction="up" />;
+}
 
 const CatalogComponent = ({list}: CatalogComponentProps) => {
-  const {data, setData, post, reset} = useForm({title: '', category_id: '', catalog_id: 0});
+  const {data, setData, post, reset, recentlySuccessful} = useForm({title: '', category_id: '', catalog_id: 0});
     
   const {categories} = list;
   const [openDialog, setOpenDialog] = useState(false);
   const [catalogs, setCatalogs] = useState(list.catalogs);
   const [category_id, setCategory_id] = useState(null);
+  const [snackbarDelState, setSnackbarDelState] = useState({open: false, transition: Slide });
 
   const handleOpenDialog = (id: number) =>{
     setOpenDialog(true);
     setData('catalog_id', id);
   }
-
-  console.log(data.catalog_id);
+  const handleClose = () =>{
+    setSnackbarDelState({...snackbarDelState,open: false});
+  }
   
 
   const handleChange = (e: any) => {
@@ -78,6 +84,15 @@ const CatalogComponent = ({list}: CatalogComponentProps) => {
             onClose={()=>setOpenDialog(false)} 
             handleAgree={handleDelete}
           />
+          <SnackbarComponent 
+                open={recentlySuccessful}
+                severity="success"
+                onSnackClose={handleClose}
+                TransitionComponent={snackbarDelState.transition}
+                autoHideDuration={1200}
+              >
+                <span>Каталог добавлен</span>
+              </SnackbarComponent>
             <Grid item xs={12}>
                 <AutocompleteComponent 
                   label="Категория" 
