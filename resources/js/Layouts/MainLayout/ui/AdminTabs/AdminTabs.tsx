@@ -17,6 +17,9 @@ const AdminTabs = (props: AdminTabsProps) =>{
                 <CustomLink href={route('category.index')} variant={VariantLink.DEFAULT} active={route().current('category.index')} >Категории</CustomLink>
             </li>
             <li className={s.adminPanelItem}>
+                <CustomLink href={route('catalog.index')} variant={VariantLink.DEFAULT} active={route().current('catalog.index')} >Подкатегории</CustomLink>
+            </li>
+            <li className={s.adminPanelItem}>
                 <CustomLink href={route('option')} variant={VariantLink.DEFAULT} active={route().current('option')} >Опции</CustomLink>
             </li>
         </ul>

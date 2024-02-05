@@ -1,5 +1,4 @@
 import { Autocomplete, Box, TextField } from "@mui/material"
-import { useRef } from "react";
 
 type AutocompleteComponent = {
     style?: any,

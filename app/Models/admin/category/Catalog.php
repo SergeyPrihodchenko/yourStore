@@ -14,6 +14,11 @@ class Catalog extends Model
 
     public $timestamps = false;
 
+    protected $fillable = [
+      'title',
+      'category_id'
+    ];
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);

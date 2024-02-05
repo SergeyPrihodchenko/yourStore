@@ -1,6 +1,6 @@
 import { axiosBaseQuery } from "@/App/providers/StoreProvider/config/axiosConfigQuery";
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { Category } from "./types.model";
+import { Category } from "./types";
 
 export const queryCategory = createApi({
     reducerPath: 'query/category',
