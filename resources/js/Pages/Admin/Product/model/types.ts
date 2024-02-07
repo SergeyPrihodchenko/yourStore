@@ -1,3 +1,5 @@
+import { Option } from "@/Entities/Option/model/types"
+
 export interface AdminProductPanelInterface {
     product: {
         id: number,
@@ -33,9 +35,5 @@ export interface AdminProductPanelInterface {
         product_id: number
     }[],
 
-    options: {
-        id: number,
-        img_path: string,
-        product_id: number
-    }
+    options: Option[]
 }

@@ -1,16 +1,41 @@
 import { Grid, ImageList, ImageListItem, Typography } from "@mui/material";
 import { AdminProductPanelInterface } from "../model/types";
+import { Option } from "@/Entities/Option/model/types";
+import CustomizedDialogs from "./components/DialogTextField";
+import EditIcon from '@mui/icons-material/Edit';
 
 const ProductShowOptionComponent = ({catalog, category, product, values, images, options}: AdminProductPanelInterface) => {
-    console.log(images);
+    console.log(values);
+
+    const optionsDate: any = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      weekday: 'long',
+      timezone: 'UTC',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric'
+    };
+
+    const date = new Date(product.updated_at);
+
+    const dateUpdate = date.toLocaleString("ru", optionsDate);
+    
     
     return (
-        <Grid container>
+        <Grid container sx={{padding: '50px'}}>
             <Grid item xs={12}>
       <Typography variant="h2" gutterBottom>
-        {product.title}
+        {product.title} <CustomizedDialogs><EditIcon sx={{color: '#363636'}}/></CustomizedDialogs>
       </Typography>
-      <ImageList sx={{ width: 300, height: 250 }} cols={4} rowHeight={164}>
+      <Typography variant="h3" gutterBottom>
+        Категория: {category.title}
+      </Typography>
+      <Typography variant="h4" gutterBottom>
+        Подкатегория: {catalog.title} 
+      </Typography>
+      <ImageList sx={{ width: '100%', height: 250 }} cols={4} rowHeight={200}>
       {images.map((item) => (
         <ImageListItem key={item.id}>
           <img
@@ -23,53 +48,23 @@ const ProductShowOptionComponent = ({catalog, category, product, values, images,
       ))}
     </ImageList>
       <Typography variant="body1" gutterBottom>
-        {product.price}
+        Цена: {product.price} <CustomizedDialogs><EditIcon sx={{color: '#363636'}}/></CustomizedDialogs>
       </Typography>
       <Typography variant="body1" gutterBottom>
-        {product.quantity}
+        Количество: {product.quantity} <CustomizedDialogs><EditIcon sx={{color: '#363636'}}/></CustomizedDialogs>
       </Typography>
       <Typography variant="body1" gutterBottom>
-        {product.description}
+        Описание:<br/> {product.description}
       </Typography>
       <Typography variant="body1" gutterBottom>
-        {product.updated_at}
+        Дата создания: {dateUpdate}
       </Typography>
-      {/* <Typography variant="h3" gutterBottom>
-        h3. Heading
-      </Typography>
-      <Typography variant="h4" gutterBottom>
-        h4. Heading
-      </Typography>
-      <Typography variant="h5" gutterBottom>
-        h5. Heading
-      </Typography>
-      <Typography variant="h6" gutterBottom>
-        h6. Heading
-      </Typography>
-      <Typography variant="subtitle1" gutterBottom>
-        subtitle1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-        blanditiis tenetur
-      </Typography>
-      <Typography variant="subtitle2" gutterBottom>
-        subtitle2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-        blanditiis tenetur
-      </Typography>
-      
-      <Typography variant="body2" gutterBottom>
-        body2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-        blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur,
-        neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum
-        quasi quidem quibusdam.
-      </Typography>
-      <Typography variant="button" display="block" gutterBottom>
-        button text
-      </Typography>
-      <Typography variant="caption" display="block" gutterBottom>
-        caption text
-      </Typography>
-      <Typography variant="overline" display="block" gutterBottom>
-        overline text
-      </Typography> */}
+       {options && options.map((option: Option) => {return (
+          <Typography variant="body1" gutterBottom>{option.title}</Typography>
+       )})}
+       {values && values.map((option: Option) => {return (
+          <Typography variant="body1" gutterBottom>{option.title}</Typography>
+       )})}
             </Grid>
         </Grid>
     );
