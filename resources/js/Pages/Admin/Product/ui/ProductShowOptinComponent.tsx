@@ -1,7 +1,7 @@
 import { Grid, ImageList, ImageListItem, Typography } from "@mui/material";
 import { AdminProductPanelInterface } from "../model/types";
 import { Option } from "@/Entities/Option/model/types";
-import CustomizedDialogs from "./components/DialogTextField";
+import CustomizedDialogsForInput from "./components/CustomizedDialogsForInput";
 import EditIcon from '@mui/icons-material/Edit';
 
 const ProductShowOptionComponent = ({catalog, category, product, values, images, options}: AdminProductPanelInterface) => {
@@ -27,7 +27,7 @@ const ProductShowOptionComponent = ({catalog, category, product, values, images,
         <Grid container sx={{padding: '50px'}}>
             <Grid item xs={12}>
       <Typography variant="h2" gutterBottom>
-        {product.title} <CustomizedDialogs><EditIcon sx={{color: '#363636'}}/></CustomizedDialogs>
+        {product.title} <CustomizedDialogsForInput><EditIcon sx={{color: '#363636'}}/></CustomizedDialogsForInput>
       </Typography>
       <Typography variant="h3" gutterBottom>
         Категория: {category.title}
@@ -48,10 +48,10 @@ const ProductShowOptionComponent = ({catalog, category, product, values, images,
       ))}
     </ImageList>
       <Typography variant="body1" gutterBottom>
-        Цена: {product.price} <CustomizedDialogs><EditIcon sx={{color: '#363636'}}/></CustomizedDialogs>
+        Цена: {product.price} <CustomizedDialogsForInput title='Цена' value={product.price}><EditIcon sx={{color: '#363636'}}/></CustomizedDialogsForInput>
       </Typography>
       <Typography variant="body1" gutterBottom>
-        Количество: {product.quantity} <CustomizedDialogs><EditIcon sx={{color: '#363636'}}/></CustomizedDialogs>
+        Количество: {product.quantity} <CustomizedDialogsForInput><EditIcon sx={{color: '#363636'}}/></CustomizedDialogsForInput>
       </Typography>
       <Typography variant="body1" gutterBottom>
         Описание:<br/> {product.description}
