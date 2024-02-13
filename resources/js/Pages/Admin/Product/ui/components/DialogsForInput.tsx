@@ -19,7 +19,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export default function CustomizedDialogsForInput({children, title, saveChage, value}: any) {
+export default function DialogsForInput({children, title, saveChage, value}: any) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {

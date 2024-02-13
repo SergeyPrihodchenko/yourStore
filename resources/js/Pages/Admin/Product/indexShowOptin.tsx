@@ -3,7 +3,7 @@ import AdminProductTabs from "./ui/components/AdminProductTabs";
 import ProductShowOptionComponent from "./ui/ProductShowOptinComponent";
 import { AdminProductPanelInterface } from "./model/types";
 
-const AdminProductPanel = ({product, values, catalog, category, images, options}: AdminProductPanelInterface) => {    
+const AdminProductPanel = ({product, values, catalog, category, images, options, categories, catalogs}: AdminProductPanelInterface) => {    
     return (
         <MainLayout>
             <AdminProductTabs/>
@@ -14,6 +14,8 @@ const AdminProductPanel = ({product, values, catalog, category, images, options}
                 category={category}
                 images={images}
                 options={options}
+                catalogs={catalogs}
+                categories={categories}
             />
         </MainLayout>
     );

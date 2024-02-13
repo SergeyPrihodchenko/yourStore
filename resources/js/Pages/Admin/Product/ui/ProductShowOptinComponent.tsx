@@ -1,11 +1,15 @@
 import { Box, Grid, ImageList, ImageListItem, Typography } from "@mui/material";
 import { AdminProductPanelInterface } from "../model/types";
 import { Option, Value } from "@/Entities/Option/model/types";
-import CustomizedDialogsForInput from "./components/CustomizedDialogsForInput";
+import DialogsForInput from "./components/DialogsForInput";
 import EditIcon from '@mui/icons-material/Edit';
+import DialogsForAutocomplite from "./components/DialogsForAutocomplite";
+import { Catalog } from "@/Entities/Catalog/model/types";
+import { useEffect, useState } from "react";
 
-const ProductShowOptionComponent = ({catalog, category, product, values, images, options}: AdminProductPanelInterface) => {
-
+const ProductShowOptionComponent = ({catalog, category, product, values, images, options, categories, catalogs}: AdminProductPanelInterface) => {
+  console.log(catalogs);
+  
     const mergeValues = (options: Option[], values: Value[]) => {
 
       options.forEach(option => {
@@ -22,6 +26,13 @@ const ProductShowOptionComponent = ({catalog, category, product, values, images,
 
     mergeValues(options, values);
 
+    const [category_id, setCategory_id] = useState(null);
+    const [catalogsList, setCatalogsList] = useState<Catalog[]>([]);
+
+    const handleChangeCategory = (e: any) => {
+      setCategory_id(e.target.value);
+    }
+
     const optionsDate: any = {
       year: 'numeric',
       month: 'long',
@@ -36,15 +47,29 @@ const ProductShowOptionComponent = ({catalog, category, product, values, images,
     const date = new Date(product.updated_at);
 
     const dateUpdate = date.toLocaleString("ru", optionsDate);
-    
-    
+
+    const filterCatalogs  = () => {
+      let filtredData = [];
+      if(category_id === null || category_id === undefined) {
+        setCatalogsList([]);
+      } else {
+        filtredData = catalogs.filter((catalog: Catalog) => catalog.category_id == category_id);
+        setCatalogsList(filtredData)
+      }
+    }
+
+    useEffect(() => {
+      filterCatalogs()
+    }, [category_id])
+        
     return (
         <Grid container sx={{padding: '20px 0'}}>
         <Grid item xs={12}>
       <Typography variant="h2" gutterBottom>
-        {product.title} <CustomizedDialogsForInput><EditIcon sx={{color: '#363636'}}/></CustomizedDialogsForInput>
+        {product.title} <DialogsForInput title='Название' value={product.title}><EditIcon sx={{color: '#363636'}}/></DialogsForInput>
       </Typography>
-      <Box sx={{boxShadow: '0 5px 20px', borderRadius: '16px', padding: '5px', margin: '10px 0'}}>
+      <Box sx={{boxShadow: '0 5px 20px', borderRadius: '16px', padding: '5px', margin: '10px 0', position: 'relative'}}>
+        <DialogsForAutocomplite handleChangeCategory={handleChangeCategory} optionsCategory={categories} optionsCatalog={catalogsList}><EditIcon sx={{color: '#363636'}}/></DialogsForAutocomplite>
       <Typography variant="h3" gutterBottom>
         Категория:<br/> {category.title}
       </Typography>
@@ -65,10 +90,10 @@ const ProductShowOptionComponent = ({catalog, category, product, values, images,
       ))}
     </ImageList>
       <Typography variant="body1" gutterBottom>
-        Цена: {product.price} <CustomizedDialogsForInput title='Цена' value={product.price}><EditIcon sx={{color: '#363636'}}/></CustomizedDialogsForInput>
+        Цена: {product.price} <DialogsForInput title='Цена' value={product.price}><EditIcon sx={{color: '#363636'}}/></DialogsForInput>
       </Typography>
       <Typography variant="body1" gutterBottom>
-        Количество: {product.quantity} <CustomizedDialogsForInput><EditIcon sx={{color: '#363636'}}/></CustomizedDialogsForInput>
+        Количество: {product.quantity} <DialogsForInput title='Количество' value={product.quantity}><EditIcon sx={{color: '#363636'}}/></DialogsForInput>
       </Typography>
       <Typography variant="body1" gutterBottom>
         Описание:<br/> {product.description}

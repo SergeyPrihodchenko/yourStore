@@ -1,3 +1,5 @@
+import { Catalog } from "@/Entities/Catalog/model/types"
+import { Category } from "@/Entities/Category/model/types"
 import { Option } from "@/Entities/Option/model/types"
 
 export interface AdminProductPanelInterface {
@@ -35,5 +37,9 @@ export interface AdminProductPanelInterface {
         product_id: number
     }[],
 
-    options: Option[]
+    options: Option[],
+
+    catalogs: Catalog[],
+
+    categories: Category[]
 }

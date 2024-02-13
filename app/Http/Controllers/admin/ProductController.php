@@ -60,13 +60,19 @@ class ProductController extends Controller
 
         $category = Category::find($catalog->category_id);
 
+        $categories = Category::all();
+
+        $catalogs = Catalog::all();
+
         return Inertia::render('Admin/Product/indexShowOptin', [
             'product' => $product, 
             'images' => $images,
             'options' => $options,
             'values' => $values,
             'catalog' => $catalog,
-            'category' => $category
+            'category' => $category,
+            'categories' => $categories,
+            'catalogs' => $catalogs
         ]);
     }
 
