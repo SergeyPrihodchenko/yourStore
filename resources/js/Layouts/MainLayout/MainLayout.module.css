@@ -4,6 +4,7 @@
 .mainWithoutTabPanel{
     margin-top: 69px;
     margin-bottom: 44px;
+    position: relative;
 }
 .mainWithTabPanel{
     /*margin-top: 48px;*/
