@@ -1,16 +1,83 @@
-import { Grid, ImageList, ImageListItem, Typography } from "@mui/material";
+import { Box, Grid, ImageList, ImageListItem, Typography } from "@mui/material";
 import { AdminProductPanelInterface } from "../model/types";
+import { Option, Value } from "@/Entities/Option/model/types";
+import DialogsForInput from "./components/DialogsForInput";
+import EditIcon from '@mui/icons-material/Edit';
+import DialogsForAutocomplite from "./components/DialogsForAutocomplite";
+import { Catalog } from "@/Entities/Catalog/model/types";
+import { useEffect, useState } from "react";
 
-const ProductShowOptionComponent = ({catalog, category, product, values, images, options}: AdminProductPanelInterface) => {
-    console.log(images);
-    
+const ProductShowOptionComponent = ({catalog, category, product, values, images, options, categories, catalogs}: AdminProductPanelInterface) => {
+  console.log(catalogs);
+  
+    const mergeValues = (options: Option[], values: Value[]) => {
+
+      options.forEach(option => {
+
+        option.values = []
+
+          values.forEach(value => {
+            if(option.id == value.option_id) {
+              option.values?.push(value);
+            }
+          })
+      });
+    }
+
+    mergeValues(options, values);
+
+    const [category_id, setCategory_id] = useState(null);
+    const [catalogsList, setCatalogsList] = useState<Catalog[]>([]);
+
+    const handleChangeCategory = (e: any) => {
+      setCategory_id(e.target.value);
+    }
+
+    const optionsDate: any = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      weekday: 'long',
+      timezone: 'UTC',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric'
+    };
+
+    const date = new Date(product.updated_at);
+
+    const dateUpdate = date.toLocaleString("ru", optionsDate);
+
+    const filterCatalogs  = () => {
+      let filtredData = [];
+      if(category_id === null || category_id === undefined) {
+        setCatalogsList([]);
+      } else {
+        filtredData = catalogs.filter((catalog: Catalog) => catalog.category_id == category_id);
+        setCatalogsList(filtredData)
+      }
+    }
+
+    useEffect(() => {
+      filterCatalogs()
+    }, [category_id])
+        
     return (
-        <Grid container>
-            <Grid item xs={12}>
+        <Grid container sx={{padding: '20px 0'}}>
+        <Grid item xs={12}>
       <Typography variant="h2" gutterBottom>
-        {product.title}
+        {product.title} <DialogsForInput title='Название' value={product.title}><EditIcon sx={{color: '#363636'}}/></DialogsForInput>
       </Typography>
-      <ImageList sx={{ width: 300, height: 250 }} cols={4} rowHeight={164}>
+      <Box sx={{boxShadow: '0 5px 20px', borderRadius: '16px', padding: '5px', margin: '10px 0', position: 'relative'}}>
+        <DialogsForAutocomplite handleChangeCategory={handleChangeCategory} optionsCategory={categories} optionsCatalog={catalogsList}><EditIcon sx={{color: '#363636'}}/></DialogsForAutocomplite>
+      <Typography variant="h3" gutterBottom>
+        Категория:<br/> {category.title}
+      </Typography>
+      <Typography variant="h4" gutterBottom>
+        Подкатегория:<br/> {catalog.title} 
+      </Typography>
+      </Box>
+      <ImageList sx={{ width: '100%', height: 250 }} cols={4} rowHeight={200}>
       {images.map((item) => (
         <ImageListItem key={item.id}>
           <img
@@ -23,53 +90,28 @@ const ProductShowOptionComponent = ({catalog, category, product, values, images,
       ))}
     </ImageList>
       <Typography variant="body1" gutterBottom>
-        {product.price}
+        Цена: {product.price} <DialogsForInput title='Цена' value={product.price}><EditIcon sx={{color: '#363636'}}/></DialogsForInput>
       </Typography>
       <Typography variant="body1" gutterBottom>
-        {product.quantity}
+        Количество: {product.quantity} <DialogsForInput title='Количество' value={product.quantity}><EditIcon sx={{color: '#363636'}}/></DialogsForInput>
       </Typography>
       <Typography variant="body1" gutterBottom>
-        {product.description}
+        Описание:<br/> {product.description}
       </Typography>
+      <br/>
       <Typography variant="body1" gutterBottom>
-        {product.updated_at}
+        Дата создания: {dateUpdate}
       </Typography>
-      {/* <Typography variant="h3" gutterBottom>
-        h3. Heading
-      </Typography>
-      <Typography variant="h4" gutterBottom>
-        h4. Heading
-      </Typography>
-      <Typography variant="h5" gutterBottom>
-        h5. Heading
-      </Typography>
-      <Typography variant="h6" gutterBottom>
-        h6. Heading
-      </Typography>
-      <Typography variant="subtitle1" gutterBottom>
-        subtitle1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-        blanditiis tenetur
-      </Typography>
-      <Typography variant="subtitle2" gutterBottom>
-        subtitle2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-        blanditiis tenetur
-      </Typography>
-      
-      <Typography variant="body2" gutterBottom>
-        body2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-        blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur,
-        neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum
-        quasi quidem quibusdam.
-      </Typography>
-      <Typography variant="button" display="block" gutterBottom>
-        button text
-      </Typography>
-      <Typography variant="caption" display="block" gutterBottom>
-        caption text
-      </Typography>
-      <Typography variant="overline" display="block" gutterBottom>
-        overline text
-      </Typography> */}
+      <br/>
+       <Box sx={{border: 'solid 1px black', position: 'relative'}}>
+       {options?.map((option: Option) => (
+        <>
+          <Typography key={option.id} variant="body1" gutterBottom>{option.title} :</Typography>
+          {option.values?.map(value => (<p key={value.id}>{value.title}</p>))}
+          <br/>
+        </>
+       ))}
+       </Box>
             </Grid>
         </Grid>
     );
