@@ -1,4 +1,4 @@
-import { Box, Grid, ImageList, ImageListItem, Typography } from "@mui/material";
+import { Box, Button, Grid, ImageList, ImageListItem, Typography } from "@mui/material";
 import { AdminProductPanelInterface } from "../model/types";
 import { Option, Value } from "@/Entities/Option/model/types";
 import DialogsForInput from "./components/DialogsForInput";
@@ -104,6 +104,7 @@ const ProductShowOptionComponent = ({catalog, category, product, values, images,
       </Typography>
       <br/>
        <Box sx={{border: 'solid 1px black', position: 'relative'}}>
+       <Button variant="outlined" >Управление опциями товара</Button>
        {options?.map((option: Option) => (
         <>
           <Typography key={option.id} variant="body1" gutterBottom>{option.title} :</Typography>
