@@ -3,7 +3,7 @@ import ProductPanelComponent from "./ui/ProductPanelComponent";
 import ProductListComponent from "./ui/ProductListComponent";
 import AdminProductTabs from "./ui/components/AdminProductTabs";
 
-const AdminProductPanel = ({categories, catalogs, options, valuesForOptions}: any) => {
+const indexPanel = ({categories, catalogs, options, valuesForOptions}: any) => {
     
     return (
         <MainLayout>
@@ -13,4 +13,4 @@ const AdminProductPanel = ({categories, catalogs, options, valuesForOptions}: an
     );
 }
 
-export default AdminProductPanel;
+export default indexPanel;
