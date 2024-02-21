@@ -76,6 +76,21 @@ class ProductController extends Controller
         ]);
     }
 
+    public function indexFilterControl(int $id)
+    {
+        $product = Product::find($id);
+        $options = $product->options;
+        $values_id = ProductValue::where('product_id', $id)->get('value_option_id');
+        
+        $values = OptionValues::find($values_id);
+
+        return Inertia::render('Admin/Product/indexFilterControl', [
+            'product' => $product,
+            'options' => $options,
+            'values' => $values
+        ]);
+    }
+
     public function serchProduct(RequestProduct $request)
     {
         $value = $request->validated('value');

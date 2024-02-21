@@ -6,6 +6,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DialogsForAutocomplite from "./components/DialogsForAutocomplite";
 import { Catalog } from "@/Entities/Catalog/model/types";
 import { useEffect, useState } from "react";
+import { router } from "@inertiajs/react";
 
 const ProductShowOptionComponent = ({catalog, category, product, values, images, options, categories, catalogs}: AdminProductPanelInterface) => {
   console.log(catalogs);
@@ -104,11 +105,12 @@ const ProductShowOptionComponent = ({catalog, category, product, values, images,
       </Typography>
       <br/>
        <Box sx={{border: 'solid 1px black', position: 'relative'}}>
-       <Button variant="outlined" >Управление опциями товара</Button>
+       <Button variant="outlined" onClick={() => {router.get(route('indexFilterControl', product.id))}}>Управление фильтрами товара</Button>
        {options?.map((option: Option) => (
         <>
           <Typography key={option.id} variant="body1" gutterBottom>{option.title} :</Typography>
           {option.values?.map(value => (<p key={value.id}>{value.title}</p>))}
+          <hr/>
           <br/>
         </>
        ))}

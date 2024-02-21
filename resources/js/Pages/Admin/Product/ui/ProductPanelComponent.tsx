@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import {Head, router} from "@inertiajs/react";
 import { Option } from "@/Entities/Option/model/types";
 import CloseIcon from '@mui/icons-material/Close';
+import { Catalog } from "@/Entities/Catalog/model/types";
 
 
 const ProductPanelComponent = ({categories, catalogs, options, valuesForOptions }: any) => {
