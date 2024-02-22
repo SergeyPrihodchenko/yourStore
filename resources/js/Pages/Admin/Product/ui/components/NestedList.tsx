@@ -6,9 +6,11 @@ import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
+import { Option, Value } from '@/Entities/Option/model/types';
 
-export default function NestedList() {
-  const [open, setOpen] = React.useState(true);
+export default function NestedList( {options}: any ) {
+  
+  const [open, setOpen] = React.useState<any>(true);
 
   const handleClick = () => {
     setOpen(!open);
@@ -16,7 +18,7 @@ export default function NestedList() {
 
   return (
     <List
-      sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+      sx={{ width: '100%', maxWidth: 660, bgcolor: 'background.paper' }}
       component="nav"
       aria-labelledby="nested-list-subheader"
       subheader={
@@ -25,17 +27,30 @@ export default function NestedList() {
         </ListSubheader>
       }
     >
-      <ListItemButton onClick={handleClick}>
-        <ListItemText primary="Inbox" />
-        {open ? <ExpandLess /> : <ExpandMore />}
-      </ListItemButton>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItemButton sx={{ pl: 4 }}>
-            <ListItemText primary="Starred" />
-          </ListItemButton>
-        </List>
-      </Collapse>
+      {options?.map((option: Option) => {
+        return (
+          <>
+            <ListItemButton onClick={handleClick}>
+              <ListItemText primary={option.title}/>
+              {open ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            {
+              option.values?.map((value: Value) => {              
+                return (
+                  <Collapse in={open} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemText primary={value.title}/>
+                    </ListItemButton>
+                  </List>
+                  </Collapse>
+                )
+              })
+            }
+
+          </>
+        )
+      })}
     </List>
   );
 }

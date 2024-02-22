@@ -7,23 +7,9 @@ import DialogsForAutocomplite from "./components/DialogsForAutocomplite";
 import { Catalog } from "@/Entities/Catalog/model/types";
 import { useEffect, useState } from "react";
 import { router } from "@inertiajs/react";
+import { mergeValues } from "./functions/functions";
 
 const ProductShowOptionComponent = ({catalog, category, product, values, images, options, categories, catalogs}: AdminProductPanelInterface) => {
-  console.log(catalogs);
-  
-    const mergeValues = (options: Option[], values: Value[]) => {
-
-      options.forEach(option => {
-
-        option.values = []
-
-          values.forEach(value => {
-            if(option.id == value.option_id) {
-              option.values?.push(value);
-            }
-          })
-      });
-    }
 
     mergeValues(options, values);
 
