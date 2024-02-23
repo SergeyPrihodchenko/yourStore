@@ -1,8 +1,8 @@
 import { Option, Value } from "@/Entities/Option/model/types";
 import { Product } from "@/Entities/Product/model/types";
 import { Grid, Typography } from "@mui/material";
-import NestedList from "./components/NestedList";
 import { mergeValues } from "./functions/functions";
+import TableComponent from "./components/TableComponent";
 
 interface IProductFilterControlComponent {
     product: Product,
@@ -11,8 +11,6 @@ interface IProductFilterControlComponent {
 }
 
 const ProductFilterControlComponent = ({options, values, product}: IProductFilterControlComponent) => {
-
-    mergeValues(options, values);
     
     return (
         <Grid container sx={{border: 'solid 1px black'}}>
@@ -22,7 +20,7 @@ const ProductFilterControlComponent = ({options, values, product}: IProductFilte
                 </Typography>
             </Grid>
             <Grid item xs={12}>
-                <NestedList options={options}/>
+                <TableComponent options={options} values={values}/>
             </Grid>
         </Grid>
     );
