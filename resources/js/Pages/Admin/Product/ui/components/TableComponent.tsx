@@ -17,11 +17,13 @@ export default function TableComponent({options, values}: any) {
     const [rows, setRows] = useState(options)
     const [toggle, setToggle] = useState<boolean>(false);
     const filterValueForOption = (id: number) => {
-        const filtredValues = values.filter((value: Value) => {
+        if(!toggle) {
+          const filtredValues = values.filter((value: Value) => {
             return value.option_id == id
-        })
-        setRows(filtredValues);
-        setToggle(true);
+          })
+          setRows(filtredValues);
+          setToggle(true);
+        }
     }
 
     const resetFilter = () => {
@@ -54,9 +56,9 @@ export default function TableComponent({options, values}: any) {
               key={row.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 }}}
             >
-              <TableCell component="th" scope="row" sx={{'&:hover': {background:'#949494', cursor: 'pointer'},  display: 'flex', justifyContent: 'space-between'}} onClick={() => {filterValueForOption(row.id)}}>
+              <TableCell component="th" scope="row" sx={{'&:hover': {background:'#949494', cursor: 'pointer'}}} onClick={() => {filterValueForOption(row.id)}}>
                 {row.title}
-                <EditIcon/>
+                <EditIcon sx={{ml: '15px'}}/>
               </TableCell>
               {!toggle ? '' : <TableCell component="th" scope="row">1</TableCell>}
               <TableCell align="right">
